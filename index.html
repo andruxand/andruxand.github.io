@@ -1,7 +1,51 @@
-<!DOCTYPE html>
-<html>
-<body>
-<h1>Hola a todos!</h1>
-<p>Esta es mi páginas para pruebas en GitHub.</p>
-</body>
+<!doctype html>
+<html lang=es-ES>
+  <head>
+    <meta charset='utf-8'>
+    <title>La Corneta de Aire</title>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='description' content='Como se escucha una Corneta de Aire.'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='canonical' href='https://airhorner.com/'>
+    <link rel='manifest' href='manifest.json'>
+    <meta name='mobile-web-app-capable' content='yes'>
+    <meta name='apple-mobile-web-app-capable' content='yes'>
+    <meta name='application-name' content='Air Horner'>
+    <meta name='apple-mobile-web-app-status-bar-style' content='black'>
+    <meta name='apple-mobile-web-app-title' content='Air Horner'>
+    <link rel=icon sizes=192x192 href=/images/touch/Airhorner_192.png>
+    <link rel=apple-touch-icon href=/images/touch/Airhorner_192.png>
+    <meta name='msapplication-TileImage' content='/images/touch/Airhorner_144.png'>
+    <meta name='msapplication-TileColor' content='#2196F3'>
+    <meta name='theme-color' content='#2196F3'>
+    <link rel='stylesheet' href='styles/main.css'>
+  </head>
+  <body>
+    <div id='container'>
+      <div id='airhorn'>
+        <div class='horn'>
+          <div class='inner'>
+            <div class='center'></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id='installer'>
+      <button class='button'>Install</button>
+      <span class='tooltip'></span>
+    </div>
+    <script src=./scripts/main.min.js></script>
+    <script>
+      if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('../app/sw.js')
+          .then(function(registration) {
+                console.log('Service Worker Registered');
+          });
+
+        navigator.serviceWorker.ready.then(function(registration) {
+           console.log('Service Worker Ready');
+        });
+      }
+    </script>
+  </body>
 </html>
