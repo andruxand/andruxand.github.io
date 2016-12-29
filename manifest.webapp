@@ -1,0 +1,21 @@
+{
+  "version": "1.0.0",
+  "name": "Dispositivo BLE",
+  "launch_path": "/index.html",
+  "description": "Información Dispositivo BLE",
+  "icons": {
+    "128": "/images/touch/icon-128x128.png"
+  },
+  "installs_allowed_from": [
+    "*"
+  ],
+  "default_locale": "es",
+  "permissions": {
+  },
+  "locales": {
+    "es": {
+      "name": "Dispositivo BLE",
+      "description": "Información Dispositivo BLE"
+    }
+  }
+}
