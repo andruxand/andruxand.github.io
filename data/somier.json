@@ -1,29 +1,29 @@
 [
   {
-    "name":"Ladies+Modern+Stretch+Full+Zip",
-    "title":"Stretch Full Zip para mujeres modernas",
+    "name":"somier+estandar+pata+extra+larga",
+    "title":"Somier Estándar Pata Extra Larga",
     "category":"somier",
-    "price":41.600,
-    "description":"Con un ajuste actualizado y detalles favorecedores de la figura, este cierre completo combina algodón ultra suave con una pizca de spandex para conservar su forma durante todo el día.&amp;nbsp;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Caractericticas:&lt;/div&gt;&lt;div&gt;&lt;ul&gt;&lt;li&gt;96% algodón, 4% elastano.&lt;/li&gt;&lt;li&gt;Silueta contorneada &amp;amp; diseño de mayor longitud para un estilo que se mueve contigo.&lt;/li&gt;&lt;li&gt;Capucha auto tela.&lt;/li&gt;&lt;li&gt;Cremallera teñida para combinar.&amp;nbsp;&lt;/li&gt;&lt;li&gt;Bolsillos frontales.&lt;/li&gt;&lt;li&gt;Puños abiertos &amp;amp; dobladillo.&lt;/li&gt;&lt;li&gt;Disponible en mosaico azul con el logotipo de Google blanco bordado en el pecho izquierdo.&amp;nbsp;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;",
-    "image":"data/images/10-24102B.jpg",
-    "largeImage":"data/images/10-24102A.jpg"
+    "price":591.300,
+    "description":"El mejor complemento para alargar la vida útil de su colchón, y ofrecerle múltiples beneficios a la hora de tender su cama y arreglar su alcoba.",
+    "image":"data/images/somierestandarpataextralarga.png",
+    "largeImage":"data/images/somierestandarpataextralarga.png"
   },
   {
-    "name":"Ladies+Colorblock+Wind+Jacket",
-    "title":"Chaqueta de viento Colorblock para mujer",
+    "name":"somier+estandar",
+    "title":"Somier Estándar",
     "category":"somier",
-    "price":45.900,
-    "description":"Mejore su viaje diario en días sombríos. Esta chaqueta ligera presenta una textura de cuadrícula sutil y un toque de color rosa brillante en cada panel lateral.&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Caracteristicas:&lt;/div&gt;&lt;div&gt;&lt;ul&gt;&lt;li&gt;Concha dobby 100% poliéster con forro de jersey.&lt;/li&gt;&lt;li&gt;Capucha con cremallera apilable y cremallera rosa en contraste.&lt;/li&gt;&lt;li&gt;Cuello de cadete y puños elásticos.&lt;/li&gt;&lt;li&gt;Las perneras ajustables en la cintura se pueden ceñir para un ajuste favorecedor.&lt;/li&gt;&lt;li&gt;Disponible en gris / rosa oscuro con el logotipo de Google blanco bordado en el pecho izquierdo.&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;",
-    "image":"data/images/10-25058B.jpg",
-    "largeImage":"data/images/10-25058A.jpg"
+    "price":591.300,
+    "description":"El mejor complemento para alargar la vida útil de su colchón, y ofrecerle múltiples beneficios a la hora de tender su cama y arreglar su alcoba.",
+    "image":"data/images/somierestandar.png",
+    "largeImage":"data/images/somierestandar.png"
   },
   {
-    "name":"Ladies+Voyage+Fleece+Jacket",
-    "title":"Chaqueta de lana para mujeres Voyage",
+    "name":"cama+duplex",
+    "title":"Cama Duplex",
     "category":"somier",
-    "price":48.000,
-    "description":"&lt;div&gt;Tal vez el equivalente a esa manta de confort que tuvo hace años es un vellón acogedor. Este cierre completo es la pieza perfecta para esos meses 'intermedios' cuando la madre naturaleza simplemente no puede decidirse.&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Caracteristicas:&lt;/div&gt;&lt;div&gt;&lt;ul&gt;&lt;li&gt;Paño grueso y suave 100% del poliéster antipiquilla.&lt;/li&gt;&lt;li&gt;Forro de tafetán 100% poliéster en mangas.&lt;/li&gt;&lt;li&gt;Bolsillos inferiores forrados con tricot con cremalleras de espiral invertida.&lt;/li&gt;&lt;li&gt;Disponible en color morado con el logotipo de Google blanco bordado en el lado izquierdo del arcón.&lt;/li&gt;&lt;li&gt;&lt;b&gt;tenga en cuenta! El tamaño es más grande de lo normal. Considere pedir un tamaño más pequeño de lo normal.&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;",
-    "image":"data/images/10-24101B.jpg",
-    "largeImage":"data/images/10-24101A.jpg"
+    "price":1117.799,
+    "description":"El mejor complemento para alargar la vida útil de su colchón, y ofrecerle múltiples beneficios a la hora de tender su cama y arreglar su alcoba.Elaborada con madera cultivada y procesada bajo normas ambientales certificadas internacionalmente. &lt;br&gt;&lt;br&gt;Resistente a la humedad y repele los hongos. &lt;br&gt;&lt;br&gt;Cuenta con una estructura elaborada en una base completa en madera inmunizada de alta resistencia, no se desajusta, ni genera ruido, y le permite una fácil rotación del colchón. &lt;br&gt;&lt;br&gt;Cubierta en tela acolchada de alta duración, que le ofrece una apariencia elegante para la decoración de su alcoba. &lt;br&gt;&lt;br&gt;Duplex Bed, tiene la gran ventaja de optimizar espacio, ya que puede tener dos camas en una, ideal en cuartos infantiles, hoteles y cuartos de huéspedes. &lt;br&gt;&lt;br&gt;Cama inferior auxiliar con rodachines fácil de manejar.",
+    "image":"data/images/camaduplex.png",
+    "largeImage":"data/images/camaduplex.png"
   }
 ]
