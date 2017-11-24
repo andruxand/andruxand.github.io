@@ -1,6 +1,9 @@
 {
   "name": "Comodisimos",
   "short_name": "Comodisimos",
+  "description": "Black Friday. El mejor fin de semana el Comodisimos",
+  "dir": "ltr",
+  "lang": "es",
   "icons": [{
       "src": "images/shop-icon-128.png",
       "sizes": "128x128",
@@ -18,10 +21,10 @@
       "sizes": "512x512",
       "type": "image/png"
     }],
-  "start_url": "/?homescreen=1",
+  "start_url": "index.html",
   "scope": "/",
   "background_color": "#fff",
   "display": "fullscreen",
   "theme_color": "#000",
-  "orientation": "landscape"
+  "orientation": "landscape-primary"
 }
