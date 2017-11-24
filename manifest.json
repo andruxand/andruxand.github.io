@@ -1,6 +1,6 @@
 {
-  "name": "COMODISIMOS",
-  "short_name": "COMODISIMOS",
+  "name": "Comodisimos",
+  "short_name": "Comodisimos",
   "icons": [{
       "src": "images/shop-icon-128.png",
       "sizes": "128x128",
@@ -21,7 +21,7 @@
   "start_url": "/?homescreen=1",
   "scope": "/",
   "background_color": "#fff",
-  "display": "standalone",
+  "display": "lgsandscape",
   "theme_color": "#000",
   "orientation": "landscape"
 }
