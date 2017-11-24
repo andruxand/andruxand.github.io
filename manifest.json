@@ -21,7 +21,7 @@
   "start_url": "/?homescreen=1",
   "scope": "/",
   "background_color": "#fff",
-  "display": "landscape",
+  "display": "fullscreen",
   "theme_color": "#000",
   "orientation": "landscape"
 }
