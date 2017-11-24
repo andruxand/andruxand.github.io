@@ -1,1 +1,19 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="/"><meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1,user-scalable=yes"><title>COMODISIMOS</title><link rel="shortcut icon" sizes="32x32" href="images/shop-icon-32.png"><meta name="twitter:card" content="summary"><meta name="twitter:site" content="@Polymer"><meta property="og:type" content="website"><meta property="og:site_name" content="COMODISIMOS"><meta name="theme-color" content="#fff"><link rel="manifest" href="manifest.json"><style>body{margin:0;font-family:'Roboto', 'Noto', sans-serif;font-size:13px;line-height:1.5;min-height:100vh;}shop-app[unresolved]{display:block;min-height:101vh;line-height:68px;text-align:center;font-size:16px;font-weight:600;letter-spacing:0.3em;color:#202020;padding:0 16px;overflow:visible;}</style></head><body><shop-app unresolved="">COMODISIMOS</shop-app><script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script><link rel="import" href="src/shop-app.html"><script>window.performance&&performance.mark&&performance.mark('index.html');</script></body></html>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="/"><meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1,user-scalable=yes"><title>COMODISIMOS</title><link rel="shortcut icon" sizes="32x32" href="images/shop-icon-32.png"><meta name="twitter:card" content="summary"><meta name="twitter:site" content="@Polymer"><meta property="og:type" content="website"><meta property="og:site_name" content="COMODISIMOS"><meta name="theme-color" content="#fff"><link rel="manifest" href="manifest.json"><style>body{margin:0;font-family:'Roboto', 'Noto', sans-serif;font-size:13px;line-height:1.5;min-height:100vh;}shop-app[unresolved]{display:block;min-height:101vh;line-height:68px;text-align:center;font-size:16px;font-weight:600;letter-spacing:0.3em;color:#202020;padding:0 16px;overflow:visible;}</style></head><body><shop-app unresolved="">COMODISIMOS</shop-app><script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><video id="video" width="320" height="240" controls>
+     <source src="https://andruxand.github.io/videos/comodisimos_black_friday.webm"  type='video/webm; codecs="vp8, vorbis"'>
+      <source src="https://andruxand.github.io/videos/comodisimos_black_friday.mp4" type='video/mp4; codecs="avc1,mp4a"'>
+</video><br />
+<button id="completa" class="button">Video a pantalla completa</button>
+<script>
+$().ready(function () {
+    //Funcion que se activa al evento click del button o boton
+    $('#completa').click(function(){
+             // Codigo para activar pantalla completa en Chrome o Safari 5
+             //Seleccionamos el elemnento video del ID video, en este caso la misma etiqueta video
+             $('#video')[0].webkitEnterFullScreen();
+                 
+             /* Codigo para activar pantalla completa en Firefox 8 o proximas actualizaciones
+             $('#video')[0].mozRequestFullScreen();
+             */      
+    });
+});
+</script><script>window.performance&&performance.mark&&performance.mark('index.html');</script></body></html>
