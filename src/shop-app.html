@@ -8,7 +8,7 @@
 </video><br />
 <button id="completa" class="button">Video a pantalla completa</button>
 <script>
-$(document).ready(function(){
+$().ready(function () {
     //Funcion que se activa al evento click del button o boton
     $('#completa').click(function(){
              // Codigo para activar pantalla completa en Chrome o Safari 5
@@ -17,8 +17,7 @@ $(document).ready(function(){
                  
              /* Codigo para activar pantalla completa en Firefox 8 o proximas actualizaciones
              $('#video')[0].mozRequestFullScreen();
-             */
-         
+             */      
     });
 });
 </script>
