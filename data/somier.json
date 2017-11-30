@@ -1,0 +1,29 @@
+[
+  {
+    "name":"somier+estandar+pata+extra+larga",
+    "title":"Somier Estándar Pata Extra Larga",
+    "category":"somier",
+    "price":591.300,
+    "description":"El mejor complemento para alargar la vida útil de su colchón, y ofrecerle múltiples beneficios a la hora de tender su cama y arreglar su alcoba.",
+    "image":"data/images/somierestandarpataextralarga.png",
+    "largeImage":"data/images/somierestandarpataextralarga.png"
+  },
+  {
+    "name":"somier+estandar",
+    "title":"Somier Estándar",
+    "category":"somier",
+    "price":591.300,
+    "description":"El mejor complemento para alargar la vida útil de su colchón, y ofrecerle múltiples beneficios a la hora de tender su cama y arreglar su alcoba.",
+    "image":"data/images/somierestandar.png",
+    "largeImage":"data/images/somierestandar.png"
+  },
+  {
+    "name":"cama+duplex",
+    "title":"Cama Duplex",
+    "category":"somier",
+    "price":1117.799,
+    "description":"El mejor complemento para alargar la vida útil de su colchón, y ofrecerle múltiples beneficios a la hora de tender su cama y arreglar su alcoba.Elaborada con madera cultivada y procesada bajo normas ambientales certificadas internacionalmente. &lt;br&gt;&lt;br&gt;Resistente a la humedad y repele los hongos. &lt;br&gt;&lt;br&gt;Cuenta con una estructura elaborada en una base completa en madera inmunizada de alta resistencia, no se desajusta, ni genera ruido, y le permite una fácil rotación del colchón. &lt;br&gt;&lt;br&gt;Cubierta en tela acolchada de alta duración, que le ofrece una apariencia elegante para la decoración de su alcoba. &lt;br&gt;&lt;br&gt;Duplex Bed, tiene la gran ventaja de optimizar espacio, ya que puede tener dos camas en una, ideal en cuartos infantiles, hoteles y cuartos de huéspedes. &lt;br&gt;&lt;br&gt;Cama inferior auxiliar con rodachines fácil de manejar.",
+    "image":"data/images/camaduplex.png",
+    "largeImage":"data/images/camaduplex.png"
+  }
+]
