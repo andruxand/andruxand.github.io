@@ -1,7 +1,7 @@
 {
   "name": "Comodisimos",
   "short_name": "Comodisimos",
-  "description": "Black Friday. El mejor fin de semana el Comodisimos",
+  "description": "El mejor descanso lo encuentras en Comodisimos",
   "dir": "ltr",
   "lang": "es",
   "icons": [{
@@ -24,6 +24,6 @@
   "start_url": "index.html",
   "scope": "/",
   "background_color": "#fff",
-  "theme_color": "#000",
+  "theme_color": "#001649",
   "display": "standalone"
 }
