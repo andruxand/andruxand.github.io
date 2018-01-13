@@ -36,7 +36,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 function phoneMoved(angle) {
     // change angle of the phone direction indicator
     var path = document.querySelector("#phone-move.path");
-    path.style = `transform: rotate(${angle}deg)`;
+    path.style = "transform: rotate(${angle}deg)";
 }
 
 function throwCard(card) {
@@ -50,7 +50,7 @@ function throwCard(card) {
         // add 'thrown' class to start animation
         cardElement.className += " thrown";
         // set thrown strength
-        cardElement.style = "transform: translateY(" + (100 - card.strength) + "vh) scale(1)";
+        cardElement.style = "transform: translateY(" + (50 - card.strength) + "vh) scale(1)";
     }, 100);
 }
 
