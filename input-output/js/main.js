@@ -72,8 +72,8 @@ if (SUPPORTS_MEDIA_DEVICES) {
 		if (listDevices.length == 1){
 			alert('No hay más Cámaras disponibles para este dispositivo');	
 		}else{
-			if (currentDevice+1 < listDevices.length - 1){
-				currentDevice++;
+			if (currentDevice + 1 <= listDevices.length - 1){
+				currentDevice = currentDevice + 1;
 			}else{
 				currentDevice = 0;  
 			}
