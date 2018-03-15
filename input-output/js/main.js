@@ -27,6 +27,7 @@ if (SUPPORTS_MEDIA_DEVICES) {
 			if (deviceInfo.kind === 'videoinput') {
 				listDevices.push(deviceInfo.deviceId);	
 				console.log('Some other kind of source/device: ', deviceInfo);
+				document.querySelector('div#devices').innerHTML = listDevices.length;
 				console.log('current dvices: ' + listDevices.length);
 			}
 		}
