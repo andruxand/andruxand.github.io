@@ -78,6 +78,8 @@ if (SUPPORTS_MEDIA_DEVICES) {
 				currentDevice = 0;  
 			}
 		}
+		
+		start();
 	}
 	
 	//videoSelect.onchange = start;
