@@ -19,7 +19,7 @@ if (SUPPORTS_MEDIA_DEVICES) {
 	var currentDevice = 0;
 	
 	function gotDevices(deviceInfos) {
-		listDevice = [0, listDevice.length-1];	
+		listDevices = [];	
 	  
 		for (var i = 0; i !== deviceInfos.length; ++i) {
 			var deviceInfo = deviceInfos[i];
