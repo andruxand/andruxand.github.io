@@ -380,7 +380,7 @@
 							
 							setTimeout( function() {
 								if (currentPage == 1){
-									initialize();
+									start();
 								}	
 							}, 1500 );
 														
@@ -543,25 +543,18 @@
 				
 				/***************************************************/
 				//             Take Photo GetUserMedia Script      //
-				/***************************************************/
+				/***************************************************/	
 				const SUPPORTS_MEDIA_DEVICES = 'mediaDevices' in navigator;
 
 				if (SUPPORTS_MEDIA_DEVICES) {
+				
 					'use strict';
 					
-					var track;
-					var timePoll;
-					var callTimePoll;
-					var listDevices = [];
-					var currentDevice = 0;
 					var videoSelect = document.querySelector('button#camera-choose-button');
-					
-					var filterSelect = document.querySelector('select#filter');
-					var show_picture = document.querySelector('#show_picture');
-					var snapshotButton = document.querySelector('button#snapshot');
-					
 					var localVideo = document.getElementById("localVideo");
 					var localCanvas = document.getElementById("localCanvas");
+					var listDevices = [];
+					var currentDevice = 0;
 					
 					function gotDevices(deviceInfos) {
 						listDevice = [];	
@@ -573,146 +566,79 @@
 								listDevices.push(deviceInfo.deviceId);	
 								console.log('Some other kind of source/device: ', deviceInfo);
 								console.log('current dvices: ' + listDevices.length);
-								alert('Device: ' + deviceInfo.deviceId);
 							}
 						}
+					}
+					
+					function gotStream(stream) {
+						window.stream = stream; // make stream available to console
+						localVideo.srcObject = stream;
+						// get the active track of the stream
+						const track = window.stream.getVideoTracks()[0];
+						
+						localVideo.addEventListener('loadedmetadata', (e) => {
+							window.setTimeout(() => (
+								onCapabilitiesReady(track.getCapabilities())
+							), 500);
+						});
+						
+						function onCapabilitiesReady(capabilities) {
+							document.querySelector('div#devices').innerHTML = capabilities;
+						}
+						// Refresh button list in case labels have become available
+						return navigator.mediaDevices.enumerateDevices();
+					}
+					
+					function start() {
+						if (window.stream) {
+							window.stream.getTracks().forEach(function(track) {
+								track.stop();
+							});
+						}
+						var videoSource = listDevices[currentDevice]; //videoSelect.value; 
+						var constraints = {
+							facingMode: 'environment', 
+							video: {deviceId: videoSource ? {exact: videoSource} : undefined}
+						};
+						
+						navigator.mediaDevices.getUserMedia(constraints).
+							then(gotStream).then(gotDevices).catch(handleError);
 					}
 					
 					function getDevice() {
-						if (listDevices.length == 1){
+						if (listDevices.length = 1){
 							alert('No hay más Cámaras disponibles para este dispositivo');	
 						}else{
-							if (currentDevice + 1 <= listDevices.length - 1){
-								currentDevice = currentDevice + 1;
+							if (currentDevice+1 < listDevices.length - 1){
+								currentDevice++;
 							}else{
 								currentDevice = 0;  
 							}
-							
-							initialize();
 						}
 					}
-				
-					initialize = function() {						
-					  if (window.stream) {
-					  	//alert('Si stop');
-						window.stream.getTracks().forEach(function(track) {
-							track.stop();
-					    });
-					  }	
-						
-					  var videoSource = listDevices[currentDevice];
-			
-					  try {
-						var constraints = {
-							facingMode: 'environment',
-							audio: false, 
-							video: {deviceId: videoSource ? {exact: videoSource} : undefined}
-						}; 
-	
-						navigator.mediaDevices.getUserMedia(constraints).
-						then(onGotStream).then(gotDevices).catch(onFailedStream);
-	
-					  } catch (e) {
-						alert("getUserMedia error " + e);
-					  }
-					}
 					
-					/*filterSelect.onchange = function() {
-					  localVideo.className = filterSelect.value;
-					};*/
-					
-					/*snapshotButton.onclick = function() {
-					  show_picture.width = 480;
-					  show_picture.height = 360;
-					  show_picture.className = filterSelect.value;
-					  show_picture.getContext('2d').drawImage(localVideo, 0, 0, show_picture.width, show_picture.height);
-					  alert(show_picture.toDataURL());
-					};*/
-				
-					poll = function() {	
-					  var w = localVideo.videoWidth;
-					  var h = localVideo.videoHeight;
-					  var canvas = document.createElement('canvas');
-					  canvas.width  = w ? w : 680;
-					  canvas.height = h ? h : 480;
-					  var ctx = canvas.getContext('2d');
-					  ctx.drawImage(localVideo, 0, 0, w, h);
-					  var comp = ccv.detect_objects({ "canvas" : ccv.grayscale(canvas),
-													"cascade" : cascade,
-													"interval" : 5,
-													"min_neighbors" : 1 });
-					  /* draw detected area */
-					  localCanvas.width = localVideo.clientWidth;
-					  localCanvas.height = localVideo.clientHeight;
-					
-					  var ctx2 = localCanvas.getContext('2d');
-					  ctx2.lineWidth = 2;
-					  ctx2.lineJoin = "round";
-					  ctx2.clearRect (0, 0, localCanvas.width,localCanvas.height);
-					
-					  var x_offset = 0, y_offset = 0, x_scale = 1, y_scale = 1;
-					  if (localVideo.clientWidth * localVideo.videoHeight > localVideo.videoWidth * localVideo.clientHeight) {
-						x_offset = (localVideo.clientWidth - localVideo.clientHeight *
-									localVideo.videoWidth / localVideo.videoHeight) / 2;
-					  } else {
-						y_offset = (localVideo.clientHeight - localVideo.clientWidth *
-									localVideo.videoHeight / localVideo.videoWidth) / 2;
-					  }
-					  x_scale = (localVideo.clientWidth - x_offset * 2) / localVideo.videoWidth;
-					  y_scale = (localVideo.clientHeight - y_offset * 2) / localVideo.videoHeight;
-					
-					  for (var i = 0; i < comp.length; i++) {
-						comp[i].x = comp[i].x * x_scale + x_offset;
-						comp[i].y = comp[i].y * y_scale + y_offset;
-						comp[i].width = comp[i].width * x_scale;
-						comp[i].height = comp[i].height * y_scale;
-					
-						var opacity = 0.1;
-						if (comp[i].confidence > 0) {
-						  opacity += comp[i].confidence / 10;
-						  if (opacity > 1.0) opacity = 1.0;
-						}
-					
-						ctx2.lineWidth = opacity * 10;
-						ctx2.strokeStyle = "rgb(255,255,255)";
-						ctx2.strokeRect(comp[i].x, comp[i].y, comp[i].width, comp[i].height);
-					  }
-					  timePoll = setTimeout(poll, 250); 
-					}
-				
-					onGotStream = function(stream) {
-					  localVideo.style.opacity = 1;
-					  window.stream = stream;
-					  localVideo.srcObject = stream;
-					  
-					  const track = window.stream.getVideoTracks()[0];
-	
-					  //callTimePoll = setTimeout(poll, 500);
-					  
-					  return navigator.mediaDevices.enumerateDevices();
-					}
-					
-					stopCamera = function(){
+					function stopCamera() {
 						if (window.stream) {
-							//alert('Si stop');
 							window.stream.getTracks().forEach(function(track) {
 								track.stop();
 							});
 							
-							clearTimeout(timePoll);
-							clearTimeout(callTimePoll);
+							//clearTimeout(timePoll);
+							//clearTimeout(callTimePoll);
 						}
 					}
 					
-					onFailedStream = function(error) {
-					  alert("Failed to get access to local media. Error code was " + error.code + ".");
-					}
-					
+					//videoSelect.onchange = start;
 					videoSelect.addEventListener('click', function(){
 						getDevice();
-					});
-						
-				}
+					});	
+					
+					function handleError(error) {
+						console.log('navigator.getUserMedia error: ', error);
+					}
+				
+				}	
+					
 				
 				/***************************************************/
 				//       FINAL Take Photo GetUserMedia Script      //
