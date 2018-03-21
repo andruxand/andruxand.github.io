@@ -375,18 +375,17 @@
 								classie.addClass( pages[ currentPage ], 'show' );
 
 							}, 1000 );
+														
 							
-							clearTimeout(trigger);							
-							
-							trigger = setTimeout( function() {
+							setTimeout( function() {
 								if (currentPage == 1){
 									initialize();
 								}	
 							}, 1500 );
-							
-							clearTimeout(trigger);							
+														
 							
 						} );
+						clearTimeout(trigger);
 					} );	
 				}
 
@@ -572,7 +571,7 @@
 								listDevices.push(deviceInfo.deviceId);	
 								console.log('Some other kind of source/device: ', deviceInfo);
 								console.log('current dvices: ' + listDevices.length);
-								alert('Device: ' + deviceInfo);
+								alert('Device: ' + deviceInfo.deviceId);
 							}
 						}
 					}
