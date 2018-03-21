@@ -592,9 +592,7 @@
 						}
 					}
 				
-					initialize = function() {
-					  currentDevice = 0;	
-						
+					initialize = function() {						
 					  if (window.stream) {
 					  	//alert('Si stop');
 						window.stream.getTracks().forEach(function(track) {
@@ -687,9 +685,9 @@
 					  window.stream = stream;
 					  localVideo.srcObject = stream;
 					  
-					  track = window.stream.getVideoTracks()[0];
+					  const track = window.stream.getVideoTracks()[0];
 	
-					  callTimePoll = setTimeout(poll, 500);
+					  //callTimePoll = setTimeout(poll, 500);
 					  
 					  return navigator.mediaDevices.enumerateDevices();
 					}
