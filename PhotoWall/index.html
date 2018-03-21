@@ -548,6 +548,8 @@
 				const SUPPORTS_MEDIA_DEVICES = 'mediaDevices' in navigator;
 
 				if (SUPPORTS_MEDIA_DEVICES) {
+					'use strict';
+					
 					var localVideo;
 					var localCanvas;
 					var track;
@@ -571,6 +573,7 @@
 								listDevices.push(deviceInfo.deviceId);	
 								console.log('Some other kind of source/device: ', deviceInfo);
 								console.log('current dvices: ' + listDevices.length);
+								alert('Device: ' + listDevices.length);
 							}
 						}
 					}
@@ -601,7 +604,8 @@
 			
 					  try {
 						var constraints = {
-							facingMode: 'environment', 
+							facingMode: 'environment',
+							audio: false, 
 							video: {deviceId: videoSource ? {exact: videoSource} : undefined}
 						}; 
 	
@@ -683,19 +687,20 @@
 					  
 					  track = window.stream.getVideoTracks()[0];
 	
-					  //callTimePoll = setTimeout(poll, 500);
+					  callTimePoll = setTimeout(poll, 500);
 					  
 					  return navigator.mediaDevices.enumerateDevices();
 					}
 					
 					stopCamera = function(){
 						if (window.stream) {
+							alert('Si stop');
 							window.stream.getTracks().forEach(function(track) {
 								track.stop();
 							});
 							
-							clearTimeout (timePoll) ;
-							clearTimeout (callTimePoll);
+							//clearTimeout (timePoll) ;
+							//clearTimeout (callTimePoll);
 						}
 					}
 					
