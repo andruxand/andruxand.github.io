@@ -318,7 +318,7 @@
                        </div>
                     </div>
                     <video id="localVideo" autoplay muted></video>
-                    <canvas id="localCanvas"></canvas>
+                    <!-- <canvas id="localCanvas"></canvas> -->
                 </div>
 			</div><!-- /container -->		
 		</div><!-- /pagewrap -->
@@ -606,11 +606,11 @@
 					}
 					
 					function getDevice() {
-						if (listDevices.length = 1){
+						if (listDevices.length == 1){
 							alert('No hay más Cámaras disponibles para este dispositivo');	
 						}else{
-							if (currentDevice+1 < listDevices.length - 1){
-								currentDevice++;
+							if (currentDevice + 1 <= listDevices.length - 1){
+								currentDevice = currentDevice + 1;
 							}else{
 								currentDevice = 0;  
 							}
