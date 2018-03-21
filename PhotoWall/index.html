@@ -548,8 +548,6 @@
 				if (SUPPORTS_MEDIA_DEVICES) {
 					'use strict';
 					
-					var localVideo;
-					var localCanvas;
 					var track;
 					var timePoll;
 					var callTimePoll;
@@ -560,6 +558,9 @@
 					var filterSelect = document.querySelector('select#filter');
 					var show_picture = document.querySelector('#show_picture');
 					var snapshotButton = document.querySelector('button#snapshot');
+					
+					var localVideo = document.getElementById("localVideo");
+					var localCanvas = document.getElementById("localCanvas");
 					
 					function gotDevices(deviceInfos) {
 						listDevice = [];	
@@ -593,11 +594,13 @@
 					initialize = function() {
 					  currentDevice = 0;	
 						
-					  stopCamera();	
+					  if (window.stream) {
+					  	//alert('Si stop');
+						window.stream.getTracks().forEach(function(track) {
+							track.stop();
+					    });
+					  }	
 						
-					  localVideo = document.getElementById("localVideo");
-					  localCanvas = document.getElementById("localCanvas");
-					  
 					  var videoSource = listDevices[currentDevice];
 			
 					  try {
