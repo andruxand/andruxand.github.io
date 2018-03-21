@@ -345,6 +345,7 @@
 				//             Pageloader Script                   //
 				/***************************************************/
 				
+				var trigger;
 				var pageWrap = document.getElementById( 'pagewrap' ),
 					pages = [].slice.call( pageWrap.querySelectorAll( 'div.container' ) ),
 					currentPage = 0,
@@ -364,7 +365,7 @@
 							
 							
 							// after some time hide loader
-							setTimeout( function() {
+							trigger = setTimeout( function() {
 								loader.hide();
 
 								classie.removeClass( pages[ currentPage ], 'show' );
@@ -372,20 +373,18 @@
 								currentPage = currentPage ? 0 : 1;
 										 
 								classie.addClass( pages[ currentPage ], 'show' );
-								
-								/*if (currentPage == 1){
-									initialize();
-								}else{
-									//stopCamera();	
-								}*/
 
-							}, 1000 );							
+							}, 1000 );
 							
-							setTimeout( function() {
+							clearTimeout(trigger);							
+							
+							trigger = setTimeout( function() {
 								if (currentPage == 1){
 									initialize();
 								}	
-							}, 1500 );							
+							}, 1500 );
+							
+							clearTimeout(trigger);							
 							
 						} );
 					} );	
@@ -573,7 +572,7 @@
 								listDevices.push(deviceInfo.deviceId);	
 								console.log('Some other kind of source/device: ', deviceInfo);
 								console.log('current dvices: ' + listDevices.length);
-								//alert('Device: ' + deviceInfo);
+								alert('Device: ' + deviceInfo);
 							}
 						}
 					}
@@ -699,8 +698,8 @@
 								track.stop();
 							});
 							
-							//clearTimeout (timePoll) ;
-							//clearTimeout (callTimePoll);
+							clearTimeout(timePoll);
+							clearTimeout(callTimePoll);
 						}
 					}
 					
