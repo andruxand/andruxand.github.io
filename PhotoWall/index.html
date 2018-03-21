@@ -573,7 +573,7 @@
 								listDevices.push(deviceInfo.deviceId);	
 								console.log('Some other kind of source/device: ', deviceInfo);
 								console.log('current dvices: ' + listDevices.length);
-								alert('Device: ' + listDevices.length);
+								//alert('Device: ' + deviceInfo);
 							}
 						}
 					}
@@ -582,7 +582,7 @@
 						if (listDevices.length = 1){
 							alert('No hay más Cámaras disponibles para este dispositivo');	
 						}else{
-							if (currentDevice + 1 < listDevices.length - 1){
+							if (currentDevice + 1 <= listDevices.length - 1){
 								currentDevice = currentDevice + 1;
 							}else{
 								currentDevice = 0;  
@@ -694,7 +694,7 @@
 					
 					stopCamera = function(){
 						if (window.stream) {
-							alert('Si stop');
+							//alert('Si stop');
 							window.stream.getTracks().forEach(function(track) {
 								track.stop();
 							});
