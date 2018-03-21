@@ -6,14 +6,14 @@ var IO = require('socket.io');
 var OPEN = require('open');
 var OS = require('os');
 
-// Create a simple web server for both pages (deck and table)
+// Create a simple web server for both pages (cup and table)
 var server = HTTP.createServer(function (request, response) {
 
-    // Serve different pages for Phone (deck) and Desktop/Tablet (table)
+    // Serve different pages for Phone (cup) and Desktop/Tablet (table)
     var filePath = '.' + request.url;
 
     if (request.url === '/' || request.url.startsWith('/?')) {
-        filePath = './' + (request.url.startsWith('/?') ? 'deck.html' : 'table.html');
+        filePath = './' + (request.url.startsWith('/?') ? 'cup.html' : 'table.html');
     }
 
     // Handle different file requests (just the required for this demo)
@@ -49,7 +49,7 @@ var server = HTTP.createServer(function (request, response) {
 
 
 // HTTP server will listen on port 8080
-server.listen(8020);
+server.listen(8080);
 
 // create a WebSocket listener for the same server
 var realtimeListener = IO.listen(server); 
@@ -59,9 +59,9 @@ var tableSockets = {};
 
 realtimeListener.on('connection', function (socket) {
 
-    // receives a connect message from the card table
+    // receives a connect message from the table
     socket.on("table-connect", function (tableId) {
-        // ...  and stores the card table socket
+        // ...  and stores the table socket
         tableSockets[tableId] = socket;
         socket.tableId = tableId;
     });
@@ -75,21 +75,21 @@ realtimeListener.on('connection', function (socket) {
         }
     });
 
-    // receives a move from a phone
-    socket.on('phone-move', function (data) {
-        var tableSocket = tableSockets[data.tableId];
+    // receives a send beer message from a phone
+    socket.on("beer-start", function (tableId) {
+        var tableSocket = tableSockets[tableId];
         if (tableSocket) {
-            // ... and forwards the current angle to the card table
-            tableSocket.emit('phone-move', data.angle);
+            // ... informs table that a phone has connected
+            tableSocket.emit('beer-start');
         }
     });
 
-    // receives a throw card message from a phone
-    socket.on('phone-throw-card', function (data) {
-        var tableSocket = tableSockets[data.tableId];
+    // receives a stop beer message from a phone
+    socket.on("beer-end", function (tableId) {
+        var tableSocket = tableSockets[tableId];
         if (tableSocket) {
-            // ... and forwards the data to the card table
-            tableSocket.emit('phone-throw-card', data);
+            // ... informs table that a phone has connected
+            tableSocket.emit('beer-end');
         }
     });
 

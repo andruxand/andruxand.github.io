@@ -50,7 +50,7 @@ function throwCard(card) {
         // add 'thrown' class to start animation
         cardElement.className += " thrown";
         // set thrown strength
-        cardElement.style = "transform: translateY(" + (50 - card.strength) + "vh) scale(1)";
+        cardElement.style = "transform: translateY(" + (100 - card.strength) + "vh) scale(1)";
     }, 100);
 }
 

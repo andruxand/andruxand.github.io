@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1"> 
+		<title>Photo Wall</title>
+		<meta name="description" content="Moderno Photo Wall para capturar y compatir lo mejores momentos con todos" />
+		<meta name="keywords" content="page loading, svg animation, loading effect, fullscreen svg" />
+		<meta name="author" content="Unicode. Creating Innovation, Creation Experience." />
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+        <link rel="stylesheet" type="text/css" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="css/component.css" />
+        <!-- Morph Button css -->
+        <link rel="stylesheet" type="text/css" href="css/component_morph_button.css" />
+        <!-- Camera Animate css -->
+        <link rel="stylesheet" type="text/css" href="css/camera-animate.css" />
+        <script>document.documentElement.className="js";var supportsCssVars=function(){var e,t=document.createElement("style");return t.innerHTML="root: { --tmp-var: bold; }",document.head.appendChild(t),e=!!(window.CSS&&window.CSS.supports&&window.CSS.supports("font-weight","var(--tmp-var)")),t.parentNode.removeChild(t),e};supportsCssVars()||alert("Please view this demo in a modern browser that supports CSS Variables.");</script>
+		<script src="js/snap.svg-min.js"></script>
+        <!-- Morph Button scripts -->
+        <script src="js/modernizr.custom.js"></script>
+		<!--[if IE]>
+  		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+        <!-- Take Photo GetUserMedia scripts -->
+        <script src="js/face.js"></script>
+        <script src="js/ccv.js"></script>
+        <style type="text/css">
+			display: block;display: block;* { margin:0; padding:0; } /* to remove the top and left whitespace */
+			html, body { width:100%; height:100%;margin:0; } /* just to be sure these are full screen*/
+			body {font-family: 'Helvetica'; overflow:hidden; }
+			
+			.none {
+			  -webkit-filter: none;
+			  filter: none;
+			}
+			.blur {
+			  -webkit-filter: blur(3px);
+			  filter: blur(3px);
+			}
+			.grayscale {
+			  -webkit-filter: grayscale(1);
+			  filter: grayscale(1);
+			}
+			.invert {
+			  -webkit-filter: invert(1);
+			  filter: invert(1);
+			}
+			.sepia {
+			  -webkit-filter: sepia(1);
+			  filter: sepia(1);
+			}
+			.hue-rotate {
+				-webkit-filter: hue-rotate(45deg);
+				filter: hue-rotate(180deg);
+			}
+			.brightness {
+				-webkit-filter: brightness(50%);
+				filter: brightness(50%);
+			}
+			.saturate {
+				-webkit-filter: saturate(250%);
+				filter: saturate(250%);
+			}
+			.contrast {
+				-webkit-filter: contrast(1.5); /* 1.5 = 150% */ 
+				filter: contrast(1.5); 
+			}
+			.drop-shadow { 
+				-webkit-filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.9)); 
+				filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.9)); 
+			}
+		
+			#localCanvas {
+				bottom: 0;
+				right: 0;
+				min-width: 100%;
+				min-height: 100%;
+				width: auto;
+				height: auto;
+				top: 50%;
+				left: 50%;
+				transform: translateX(-50%) translateY(-50%);
+				position: fixed;
+				z-index: -1;
+			}
+		
+			#localVideo {
+				position: fixed;
+				right: 0;
+				bottom: 0;
+				min-width: 100%;
+				min-height: 100%;
+				width: auto;
+				height: auto;
+				top: 50%;
+				left: 50%;
+				transform: translateX(-50%) translateY(-50%);
+				z-index: -1;
+			}
+			
+			.toolbar.left {
+				justify-content: flex-start;
+			}
+			
+			.center {
+				justify-content: center;
+			}
+			
+			.bott {
+				margin-top: auto;
+			}
+			
+			.toolbar {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-around;
+				align-items: center;
+				width: 100%;
+				flex-shrink: 0;
+			}
+			
+			.toolbar.right {
+				justify-content: flex-end;
+			}
+			
+			button svg {
+				position: absolute;
+				transform: translate(-50%, -50%);
+				left: 50%;
+				top: 50%;
+			}
+			
+			a svg {
+				position: absolute;
+				transform: translate(-50%, -50%);
+				left: 50%;
+				top: 50%;
+			}
+			
+			#pagewrap svg {
+				fill: currentColor;
+				width: 36px;
+			}
+			
+			button.dark, button.light {
+				margin: 5px;
+				border-radius: 50%;
+				width: 54px;
+				height: 54px;
+				background-color: rgba(255, 255, 255, 0);
+				overflow: hidden;
+				border: none;
+				color: white;
+				position: relative;
+			}
+			
+			a.dark:hover, a.dark:focus {
+				background-color: rgba(255, 255, 255, 0.3);
+				outline: 0;
+			}
+			a.dark, a.light {
+				margin: 5px;
+				border-radius: 50%;
+				width: 54px;
+				height: 54px;
+				background-color: rgba(255, 255, 255, 0);
+				overflow: hidden;
+				border: none;
+				color: white;
+				position: relative;
+				cursor:pointer;
+			}
+			
+			#capture-button {
+				color: black;
+				margin: 10px;
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+				background-color: rgba(255, 255, 255, 0.3);
+				overflow: hidden;
+				border: none;
+				position: relative;
+			}
+			
+			#capture-button:focus, #capture-button:hover {
+				width: 90px;
+				height: 90px;
+				border: 5px #50E3C2 solid;
+				margin: 5px;
+				border-radius: 50%;
+				outline: 0;
+			}
+			
+			#capture-button-inner {
+				width: 64px;
+				height: 64px;
+				border-radius: 50%;
+				margin: 2px;
+				background-color: white;
+			}
+			
+			button.dark:hover, button.dark:focus {
+				background-color: rgba(255, 255, 255, 0.3);
+				outline: 0;
+			}
+			
+			.view-element {
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-start;
+				height: 100%;
+				overflow: hidden;
+			}
+			
+			#icon-flash-on {
+				display: none;	
+			}
+			
+			#icon-flash-off {
+				display: block;	
+			}
+			
+			#icon-flash-auto {
+				display: none;	
+			}
+		
+			button#snapshot {
+			  margin: 0 10px 25px 0;
+			  width: 110px;
+			}
+		
+		 </style>
+	</head>
+	<body>
+		<div id="pagewrap" class="pagewrap">
+			<div class="container show" id="page-1">
+				<div class="header">
+                	<div class="slide__bg slide__bg--3"></div>
+                    <div class="word">
+                        <h2 class="word-animate word--3">Photo Wall</h2>
+                        
+                        <!-- camera animate -->
+                        <div class="flat-anim animation">
+                            <div class="eye"></div>
+                            <div class="bottom"></div>
+                        </div>
+                        <!-- camera animate -->
+                       
+                        <!-- morph-button -->
+                        <div class="morph-button morph-button-modal morph-button-modal-1 morph-button-fixed">
+                            <button type="button">Términos &amp; Condiciones</button>
+                            <div class="morph-content">
+                                <div>
+                                    <div class="content-style-text">
+                                        <span class="icon" id="icon-close">Close the dialog</span>
+                                        <h2>Terms &amp; Conditions</h2>
+                                        <p>Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut juccama green bean celtuce collard greens avocado quandong <strong>fennel gumbo</strong> black-eyed pea. Grape silver beet watercress potato tigernut corn groundnut. Chickweed okra pea winter purslane coriander yarrow sweet pepper radish garlic brussels sprout groundnut summer purslane earthnut pea <strong>tomato spring onion</strong> azuki bean gourd.</p>
+                                        <p><input id="terms" type="checkbox" /><label for="terms">I accept the terms &amp; conditions.</label></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                   		<!-- morph-button -->
+                        
+                        <div class="column center">
+                            <p>To start the page loading animation, click the following link:</p>
+                            <p><a class="pageload-link pageload" href="#page-2">Show Page Loader</a></p>
+                        </div>
+                    </div>
+				</div>
+			</div><!-- /container -->
+
+			<!-- The new page dummy; this would be dynamically loaded content -->
+			<div class="container" id="page-2">
+				<div class="view-element hidden" id="capture-view" style="">
+                	<div class="toolbar">
+                    	<a class="dark pageload" href="#page-1" id="capture-view-close" aria-label="Close" title="Close" tabindex="0">
+                        	<svg viewBox="0 0 24 24">
+                            	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-close"></use>
+                            </svg>
+                        </a>
+                            
+                        <button class="dark" id="camera-choose-button" aria-label="Choose camera" title="Choose camera" tabindex="0">
+                        	<svg viewBox="0 0 24 24">
+    	                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-camera-rear"></use>                            </svg>
+                        </button>
+                            
+                        <button class="dark" id="capture-flash-button" aria-label="Toggle flash" title="Toggle flash" tabindex="0">
+                        	<svg id="icon-flash-on" viewBox="0 0 24 24">
+                            	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-flash-on"></use>
+                            </svg>
+                            <svg id="icon-flash-off" viewBox="0 0 24 24">
+                            	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-flash-off"></use>
+                            </svg>
+                            <svg id="icon-flash-auto" viewBox="0 0 24 24">
+                            	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-flash-auto"></use>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="toolbar bott">
+               		   <!-- espacio para más opcopnes de camara -->
+                    </div>
+                        
+                    <div class="toolbar center">
+             	       <div>
+                	       <button id="capture-button" aria-label="Take photo" title="Take photo" autofocus tabindex="0">
+     	                      <div id="capture-button-inner">
+        	                      <svg viewBox="0 0 24 24">
+            	                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-photo-camera">
+                                  </use></svg>
+                              </div>
+                           </button>
+                       </div>
+                    </div>
+                    <video id="localVideo" autoplay muted></video>
+                    <canvas id="localCanvas"></canvas>
+                </div>
+			</div><!-- /container -->		
+		</div><!-- /pagewrap -->
+        
+        <div id="loader" class="pageload-overlay" data-opening="m -5,-5 0,70 90,0 0,-70 z m 5,35 c 0,0 15,20 40,0 25,-20 40,0 40,0 l 0,0 C 80,30 65,10 40,30 15,50 0,30 0,30 z">
+			<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 80 60" preserveAspectRatio="none" >
+				<path d="m -5,-5 0,70 90,0 0,-70 z m 5,5 c 0,0 7.9843788,0 40,0 35,0 40,0 40,0 l 0,60 c 0,0 -3.944487,0 -40,0 -30,0 -40,0 -40,0 z"/>
+			</svg>
+		</div><!-- /pageload-overlay -->
+        
+        <!-- loader page scripts -->
+		<script src="js/classie.js"></script>
+		<script src="js/svgLoader.js"></script>
+        <!-- animate words scripts -->
+        <script src="js/charming.min.js"></script>
+		<script src="js/anime.min.js"></script>
+		<script src="js/wordFx.js"></script>
+        <!-- Morph Button scripts -->
+        <script src="js/classie.js"></script>
+		<script src="js/uiMorphingButton_fixed.js"></script>
+		<script>
+			(function() {
+				
+				/***************************************************/
+				//             Pageloader Script                   //
+				/***************************************************/
+				
+				var pageWrap = document.getElementById( 'pagewrap' ),
+					pages = [].slice.call( pageWrap.querySelectorAll( 'div.container' ) ),
+					currentPage = 0,
+					triggerLoading = [].slice.call( pageWrap.querySelectorAll( 'a.pageload' ) ),
+					loader = new SVGLoader( document.getElementById( 'loader' ), { speedIn : 400, easingIn : mina.easeinout } );
+
+				function init() {
+					triggerLoading.forEach( function( trigger ) {
+						trigger.addEventListener( 'click', function( ev ) {
+							ev.preventDefault();
+							loader.show();
+							// after some time hide loader
+							setTimeout( function() {
+								loader.hide();
+
+								classie.removeClass( pages[ currentPage ], 'show' );
+								// update..
+								currentPage = currentPage ? 0 : 1;
+										 
+								classie.addClass( pages[ currentPage ], 'show' );
+								
+								if (currentPage == 1){
+									initialize();
+								}else{
+									stopCamera();	
+								}
+
+							}, 2000 );
+						} );
+					} );	
+				}
+
+				init();
+				
+				/***************************************************/
+				//            FINAL Pageloader Script              //
+				/***************************************************/
+				
+				/***************************************************/
+				//             Animate Words Script                //
+				/***************************************************/
+				
+				const effects = [
+					// Effect
+					{
+						options: {
+							shapeColors: ['#111']
+						},
+						hide: {
+							shapesAnimationOpts: {
+								duration: 200,
+								delay: (t,i) => i*20,
+								easing: 'easeOutExpo',
+								translateX: t => t.dataset.tx,
+								translateY: t => t.dataset.ty - anime.random(400,800),
+								scale: t => t.dataset.s,
+								rotate: 0,
+								opacity: {
+									value: 0, 
+									duration: 200, 
+									easing: 'linear'
+								}
+							}
+						},
+						show: {
+							lettersAnimationOpts: {
+								duration: 500,
+								delay: (t,i) => i*60,
+								easing: 'easeOutExpo',
+								opacity: {
+									value: [0,1], 
+									duration: 50,
+									delay: (t,i) => i*60,
+									easing: 'linear'
+								},
+								translateY: (t,i) => i%2 ? [anime.random(-350,-300),0] : [anime.random(300,350),0]
+							},
+							shapesAnimationOpts: {
+								duration: () => anime.random(1000,4000),
+								delay: (t,i) => i*20,
+								easing: [0.2,1,0.3,1],
+								translateX: t => {
+									const tx = anime.random(-200,200);
+									t.dataset.tx = tx;
+									return [0,tx];
+								},
+								translateY: t => {
+									const ty = anime.random(-300,300);
+									t.dataset.ty = ty;
+									return [0,ty];
+								},
+								scale: t => {
+									const s = randomBetween(0.2,0.6);
+									t.dataset.s = s;
+									return [s,s];
+								},  
+								rotate: () => anime.random(-90,90),
+								opacity: {
+									value: 0.6, 
+									duration: 1000, 
+									easing: 'linear'
+								}
+							}
+						}
+					},
+				];
+
+				var word_element = document.querySelector('.word--3');
+				var current = 0;
+				var words = new Word(word_element, effects[current].options);
+				words.show(effects[current].show);
+				
+				/***************************************************/
+				//             FINAL Animate Words Script          //
+				/***************************************************/
+				
+				/***************************************************/
+				//             Morph Button Script                 //
+				/***************************************************/
+				
+				var docElem = window.document.documentElement, didScroll, scrollPosition;
+
+				// trick to prevent scrolling when opening/closing button
+				function noScrollFn() {
+					window.scrollTo( scrollPosition ? scrollPosition.x : 0, scrollPosition ? scrollPosition.y : 0 );
+				}
+
+				function noScroll() {
+					window.removeEventListener( 'scroll', scrollHandler );
+					window.addEventListener( 'scroll', noScrollFn );
+				}
+
+				function scrollFn() {
+					window.addEventListener( 'scroll', scrollHandler );
+				}
+
+				function canScroll() {
+					window.removeEventListener( 'scroll', noScrollFn );
+					scrollFn();
+				}
+
+				function scrollHandler() {
+					if( !didScroll ) {
+						didScroll = true;
+						setTimeout( function() { scrollPage(); }, 60 );
+					}
+				};
+
+				function scrollPage() {
+					scrollPosition = { x : window.pageXOffset || docElem.scrollLeft, y : window.pageYOffset || docElem.scrollTop };
+					didScroll = false;
+				};
+
+				scrollFn();
+
+				var UIBtnn = new UIMorphingButton( document.querySelector( '.morph-button' ), {
+					closeEl : '#icon-close',
+					onBeforeOpen : function() {
+						// don't allow to scroll
+						noScroll();
+					},
+					onAfterOpen : function() {
+						// can scroll again
+						canScroll();
+					},
+					onBeforeClose : function() {
+						// don't allow to scroll
+						noScroll();
+					},
+					onAfterClose : function() {
+						// can scroll again
+						canScroll();
+					}
+				} );
+
+				document.getElementById( 'terms' ).addEventListener( 'change', function() {
+					UIBtnn.toggle();
+				} );
+				
+				/***************************************************/
+				//             FINAL Morph Button Script           //
+				/***************************************************/
+				
+				/***************************************************/
+				//             Take Photo GetUserMedia Script      //
+				/***************************************************/
+				const SUPPORTS_MEDIA_DEVICES = 'mediaDevices' in navigator;
+
+				if (SUPPORTS_MEDIA_DEVICES) {
+					var localVideo;
+					var localCanvas;
+					var track;
+					var timePoll;
+					var callTimePoll;
+					var listDevices = [];
+					var currentDevice = 0;
+					var videoSelect = document.querySelector('button#camera-choose-button');
+					
+					var filterSelect = document.querySelector('select#filter');
+					var show_picture = document.querySelector('#show_picture');
+					var snapshotButton = document.querySelector('button#snapshot');
+					
+					function gotDevices(deviceInfos) {
+						listDevice = [];	
+					  
+						for (var i = 0; i !== deviceInfos.length; ++i) {
+							var deviceInfo = deviceInfos[i];
+						
+							if (deviceInfo.kind === 'videoinput') {
+								listDevices.push(deviceInfo.deviceId);	
+								console.log('Some other kind of source/device: ', deviceInfo);
+								console.log('current dvices: ' + listDevices.length);
+							}
+						}
+					}
+					
+					function getDevice() {
+						if (listDevices.length = 1){
+							alert('No hay más Cámaras disponibles para este dispositivo');	
+						}else{
+							if (currentDevice+1 < listDevices.length - 1){
+								currentDevice++;
+							}else{
+								currentDevice = 0;  
+							}
+							
+							initialize();
+						}
+					}
+				
+					initialize = function() {
+					  currentDevice = 0;	
+						
+					  stopCamera();	
+						
+					  localVideo = document.getElementById("localVideo");
+					  localCanvas = document.getElementById("localCanvas");
+					  
+					  var videoSource = listDevices[currentDevice];
+			
+					  try {
+						var constraints = {
+							facingMode: 'environment', 
+							video: {deviceId: videoSource ? {exact: videoSource} : undefined}
+						}; 
+	
+						navigator.mediaDevices.getUserMedia(constraints).
+						then(onGotStream).then(gotDevices).catch(onFailedStream);
+	
+					  } catch (e) {
+						alert("getUserMedia error " + e);
+					  }
+					}
+					
+					/*filterSelect.onchange = function() {
+					  localVideo.className = filterSelect.value;
+					};*/
+					
+					/*snapshotButton.onclick = function() {
+					  show_picture.width = 480;
+					  show_picture.height = 360;
+					  show_picture.className = filterSelect.value;
+					  show_picture.getContext('2d').drawImage(localVideo, 0, 0, show_picture.width, show_picture.height);
+					  alert(show_picture.toDataURL());
+					};*/
+				
+					poll = function() {	
+					  var w = localVideo.videoWidth;
+					  var h = localVideo.videoHeight;
+					  var canvas = document.createElement('canvas');
+					  canvas.width  = w ? w : 680;
+					  canvas.height = h ? h : 480;
+					  var ctx = canvas.getContext('2d');
+					  ctx.drawImage(localVideo, 0, 0, w, h);
+					  var comp = ccv.detect_objects({ "canvas" : ccv.grayscale(canvas),
+													"cascade" : cascade,
+													"interval" : 5,
+													"min_neighbors" : 1 });
+					  /* draw detected area */
+					  localCanvas.width = localVideo.clientWidth;
+					  localCanvas.height = localVideo.clientHeight;
+					
+					  var ctx2 = localCanvas.getContext('2d');
+					  ctx2.lineWidth = 2;
+					  ctx2.lineJoin = "round";
+					  ctx2.clearRect (0, 0, localCanvas.width,localCanvas.height);
+					
+					  var x_offset = 0, y_offset = 0, x_scale = 1, y_scale = 1;
+					  if (localVideo.clientWidth * localVideo.videoHeight > localVideo.videoWidth * localVideo.clientHeight) {
+						x_offset = (localVideo.clientWidth - localVideo.clientHeight *
+									localVideo.videoWidth / localVideo.videoHeight) / 2;
+					  } else {
+						y_offset = (localVideo.clientHeight - localVideo.clientWidth *
+									localVideo.videoHeight / localVideo.videoWidth) / 2;
+					  }
+					  x_scale = (localVideo.clientWidth - x_offset * 2) / localVideo.videoWidth;
+					  y_scale = (localVideo.clientHeight - y_offset * 2) / localVideo.videoHeight;
+					
+					  for (var i = 0; i < comp.length; i++) {
+						comp[i].x = comp[i].x * x_scale + x_offset;
+						comp[i].y = comp[i].y * y_scale + y_offset;
+						comp[i].width = comp[i].width * x_scale;
+						comp[i].height = comp[i].height * y_scale;
+					
+						var opacity = 0.1;
+						if (comp[i].confidence > 0) {
+						  opacity += comp[i].confidence / 10;
+						  if (opacity > 1.0) opacity = 1.0;
+						}
+					
+						ctx2.lineWidth = opacity * 10;
+						ctx2.strokeStyle = "rgb(255,255,255)";
+						ctx2.strokeRect(comp[i].x, comp[i].y, comp[i].width, comp[i].height);
+					  }
+					  timePoll = setTimeout(poll, 250); 
+					}
+				
+					onGotStream = function(stream) {
+					  localVideo.style.opacity = 1;
+					  window.stream = stream;
+					  localVideo.srcObject = stream;
+					  
+					  track = window.stream.getVideoTracks()[0];
+	
+					  callTimePoll = setTimeout(poll, 500);
+					  
+					  return navigator.mediaDevices.enumerateDevices();
+					}
+					
+					stopCamera = function(){
+						if (window.stream) {
+							window.stream.getTracks().forEach(function(track) {
+								track.stop();
+							});
+							
+							clearTimeout (timePoll) ;
+							clearTimeout (callTimePoll);
+						}
+					}
+					
+					onFailedStream = function(error) {
+					  alert("Failed to get access to local media. Error code was " + error.code + ".");
+					}
+					
+					videoSelect.addEventListener('click', function(){
+						getDevice();
+					});
+						
+				}
+				
+				/***************************************************/
+				//       FINAL Take Photo GetUserMedia Script      //
+				/***************************************************/
+				
+			})();
+			
+		</script>
+        <svg class="hidden">
+			<defs>
+				<g id="svg-edit">
+				  <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>
+				  <path d="M0 0h24v24H0z" fill="none"></path>
+				</g>
+				<g id="svg-arrow-back">
+				  <path d="M0 0h24v24H0z" fill="none"></path>
+				  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
+				</g>
+				<g id="svg-photo-camera">
+				  <circle cx="12" cy="12" r="3.2"></circle>
+				  <path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"></path>
+				  <path d="M0 0h24v24H0z" fill="none"></path>
+				</g>
+				<g id="svg-camera-rear">
+				  <path d="M0 0h24v24H0z" fill="none"></path>
+				  <path d="M10 20H5v2h5v2l3-3-3-3v2zm4 0v2h5v-2h-5zm3-20H7C5.9 0 5 .9 5 2v14c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2zm-5 6c-1.11 0-2-.9-2-2s.89-2 1.99-2 2 .9 2 2C14 5.1 13.1 6 12 6z"></path>
+				</g>
+				<g id="svg-camera-front">
+				  <path d="M0 0h24v24H0z" fill="none"></path>
+				  <path d="M10 20H5v2h5v2l3-3-3-3v2zm4 0v2h5v-2h-5zM12 8c1.1 0 2-.9 2-2s-.9-2-2-2-1.99.9-1.99 2S10.9 8 12 8zm5-8H7C5.9 0 5 .9 5 2v14c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2zM7 2h10v10.5c0-1.67-3.33-2.5-5-2.5s-5 .83-5 2.5V2z"></path>
+				</g>
+				<g id="svg-add-a-photo">
+				  <defs>
+					<path d="M24 24H0V0h24v24z" id="a"></path>
+				  </defs>
+				  <clipPath id="b">
+					<use overflow="visible" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#a"></use>
+				  </clipPath>
+				  <path clip-path="url(#b)" d="M3 4V1h2v3h3v2H5v3H3V6H0V4h3zm3 6V7h3V4h7l1.83 2H21c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2V10h3zm7 9c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-3.2-5c0 1.77 1.43 3.2 3.2 3.2s3.2-1.43 3.2-3.2-1.43-3.2-3.2-3.2-3.2 1.43-3.2 3.2z"></path>
+				</g>
+				<g id="svg-close">
+				  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+				  <path d="M0 0h24v24H0z" fill="none"></path>
+				</g>
+				<g id="svg-file-upload">
+				  <path d="M0 0h24v24H0z" fill="none"></path>
+				  <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"></path>
+				</g>
+				<g id="svg-blur-on">
+				  <path d="M6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-3 .5c-.28 0-.5.22-.5.5s.22.5.5.5.5-.22.5-.5-.22-.5-.5-.5zM6 5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm15 5.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5-.5.22-.5.5.22.5.5.5zM14 7c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm0-3.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5-.5.22-.5.5.22.5.5.5zm-11 10c-.28 0-.5.22-.5.5s.22.5.5.5.5-.22.5-.5-.22-.5-.5-.5zm7 7c-.28 0-.5.22-.5.5s.22.5.5.5.5-.22.5-.5-.22-.5-.5-.5zm0-17c.28 0 .5-.22.5-.5s-.22-.5-.5-.5-.5.22-.5.5.22.5.5.5zM10 7c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm0 5.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm8 .5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm3 8.5c-.28 0-.5.22-.5.5s.22.5.5.5.5-.22.5-.5-.22-.5-.5-.5zM14 17c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 3.5c-.28 0-.5.22-.5.5s.22.5.5.5.5-.22.5-.5-.22-.5-.5-.5zm-4-12c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0 8.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-4.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-4c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"></path>
+				  <path d="M0 0h24v24H0z" fill="none"></path>
+				</g>
+				<g id="svg-wb-cloudy">
+				  <path d="M0 0h24v24H0z" fill="none"></path>
+				  <path d="M19.36 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.64-4.96z"></path>
+				</g>
+				<g id="svg-palette">
+				  <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path>
+				  <path d="M0 0h24v24H0z" fill="none"></path>
+				</g>
+				<g id="svg-exposure">
+				  <path d="M0 0h24v24H0z" fill="none"></path>
+				  <path d="M15 17v2h2v-2h2v-2h-2v-2h-2v2h-2v2h2zm5-15H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM5 5h6v2H5V5zm15 15H4L20 4v16z"></path>
+				</g>
+				<g id="svg-vignette">
+				  <path d="M0 0h24v24H0V0z" fill="none"></path>
+				  <path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 15c-4.42 0-8-2.69-8-6s3.58-6 8-6 8 2.69 8 6-3.58 6-8 6z"></path>
+				</g>
+				<g id="svg-brightness-6">
+				  <path d="M0 0h24v24H0z" fill="none"></path>
+				  <path d="M20 15.31L23.31 12 20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69zM12 18V6c3.31 0 6 2.69 6 6s-2.69 6-6 6z"></path>
+				</g>
+				<g id="svg-flip">
+				  <path d="M0 0h24v24H0z" fill="none"></path>
+				  <path d="M15 21h2v-2h-2v2zm4-12h2V7h-2v2zM3 5v14c0 1.1.9 2 2 2h4v-2H5V5h4V3H5c-1.1 0-2 .9-2 2zm16-2v2h2c0-1.1-.9-2-2-2zm-8 20h2V1h-2v22zm8-6h2v-2h-2v2zM15 5h2V3h-2v2zm4 8h2v-2h-2v2zm0 8c1.1 0 2-.9 2-2h-2v2z"></path>
+				</g>
+				<g id="svg-photo-filter">
+				  <path d="M0 0h24v24H0V0z" fill="none"></path>
+				  <path d="M19.02 10v9H5V5h9V3H5.02c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-9h-2zM17 10l.94-2.06L20 7l-2.06-.94L17 4l-.94 2.06L14 7l2.06.94zm-3.75.75L12 8l-1.25 2.75L8 12l2.75 1.25L12 16l1.25-2.75L16 12z"></path>
+				</g>
+				<g id="svg-tune">
+				  <path d="M0 0h24v24H0z" fill="none"></path>
+				  <path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"></path>
+				</g>
+				<g id="svg-check">
+				  <path d="M0 0h24v24H0z" fill="none"></path>
+				  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+				</g>
+				<g id="svg-flash-on">
+				  <path d="M0 0h24v24H0z" fill="none"></path>
+				  <path d="M7 2v11h3v9l7-12h-4l4-8z"></path>
+				</g>
+				<g id="svg-flash-off">
+				  <path d="M0 0h24v24H0z" fill="none"></path>
+				  <path d="M3.27 3L2 4.27l5 5V13h3v9l3.58-6.14L17.73 20 19 18.73 3.27 3zM17 10h-4l4-8H7v2.18l8.46 8.46L17 10z"></path>
+				</g>
+				<g id="svg-flash-auto">
+				  <path d="M0 0h24v24H0z" fill="none"></path>
+				  <path d="M3 2v12h3v9l7-12H9l4-9H3zm16 0h-2l-3.2 9h1.9l.7-2h3.2l.7 2h1.9L19 2zm-2.15 5.65L18 4l1.15 3.65h-2.3z"></path>
+				</g>
+    		</defs>
+   		</svg>
+	</body>
+</html>
