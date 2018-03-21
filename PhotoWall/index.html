@@ -356,6 +356,13 @@
 						trigger.addEventListener( 'click', function( ev ) {
 							ev.preventDefault();
 							loader.show();
+							
+							
+							if (currentPage == 1){
+								stopCamera();
+							}	
+							
+							
 							// after some time hide loader
 							setTimeout( function() {
 								loader.hide();
@@ -366,13 +373,20 @@
 										 
 								classie.addClass( pages[ currentPage ], 'show' );
 								
-								if (currentPage == 1){
+								/*if (currentPage == 1){
 									initialize();
 								}else{
-									stopCamera();	
-								}
+									//stopCamera();	
+								}*/
 
-							}, 2000 );
+							}, 1000 );							
+							
+							setTimeout( function() {
+								if (currentPage == 1){
+									initialize();
+								}	
+							}, 1500 );							
+							
 						} );
 					} );	
 				}
@@ -565,8 +579,8 @@
 						if (listDevices.length = 1){
 							alert('No hay más Cámaras disponibles para este dispositivo');	
 						}else{
-							if (currentDevice+1 < listDevices.length - 1){
-								currentDevice++;
+							if (currentDevice + 1 < listDevices.length - 1){
+								currentDevice = currentDevice + 1;
 							}else{
 								currentDevice = 0;  
 							}
