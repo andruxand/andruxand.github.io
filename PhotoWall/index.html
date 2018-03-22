@@ -575,6 +575,11 @@
 					function gotStream(stream) {
 					  window.stream = stream; // make stream available to console
 					  localVideo.srcObject = stream;
+					  
+					  localVideo.style.display = 'block';
+					  
+					  const track = window.stream.getVideoTracks()[0];
+					  
 					  // Refresh button list in case labels have become available
 					  return navigator.mediaDevices.enumerateDevices();
 					}
@@ -591,12 +596,13 @@
 							video: {deviceId: videoSource ? {exact: videoSource} : undefined}
 						};
 						
+						localVideo.style.display = 'none';
 						navigator.mediaDevices.getUserMedia(constraints).
 							then(gotStream).then(gotDevices).catch(handleError);
 					}
 					
 					function getDevice() {
-						if (listDevices.length = 1){
+						if (listDevices.length <= 1){
 							alert('No hay más Cámaras disponibles para este dispositivo');	
 						}else{
 							if (currentDevice + 1 <= listDevices.length - 1){
