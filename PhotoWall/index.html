@@ -570,23 +570,13 @@
 						}
 					}
 					
+					navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
+	
 					function gotStream(stream) {
-						window.stream = stream; // make stream available to console
-						localVideo.srcObject = stream;
-						// get the active track of the stream
-						const track = window.stream.getVideoTracks()[0];
-						
-						localVideo.addEventListener('loadedmetadata', (e) => {
-							window.setTimeout(() => (
-								onCapabilitiesReady(track.getCapabilities())
-							), 500);
-						});
-						
-						function onCapabilitiesReady(capabilities) {
-							document.querySelector('div#devices').innerHTML = capabilities;
-						}
-						// Refresh button list in case labels have become available
-						return navigator.mediaDevices.enumerateDevices();
+					  window.stream = stream; // make stream available to console
+					  localVideo.srcObject = stream;
+					  // Refresh button list in case labels have become available
+					  return navigator.mediaDevices.enumerateDevices();
 					}
 					
 					function start() {
@@ -606,7 +596,7 @@
 					}
 					
 					function getDevice() {
-						if (listDevices.length == 1){
+						if (listDevices.length = 1){
 							alert('No hay más Cámaras disponibles para este dispositivo');	
 						}else{
 							if (currentDevice + 1 <= listDevices.length - 1){
@@ -614,6 +604,8 @@
 							}else{
 								currentDevice = 0;  
 							}
+							
+							start();
 						}
 					}
 					
@@ -628,7 +620,6 @@
 						}
 					}
 					
-					//videoSelect.onchange = start;
 					videoSelect.addEventListener('click', function(){
 						getDevice();
 					});	
@@ -639,7 +630,6 @@
 				
 				}	
 					
-				
 				/***************************************************/
 				//       FINAL Take Photo GetUserMedia Script      //
 				/***************************************************/
