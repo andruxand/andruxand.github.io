@@ -13,7 +13,7 @@ if (SUPPORTS_MEDIA_DEVICES) {
 
 	'use strict';
 	
-	var videoElement;
+	var videoElement = document.querySelector('video');
 	var videoSelectb = document.querySelector('button#videoSourceb');
 	var videoStart = document.querySelector('button#capture-button');
 	var videoStop = document.querySelector('button#videoStop');
@@ -35,11 +35,10 @@ if (SUPPORTS_MEDIA_DEVICES) {
 	}
 	
 	function gotStream(stream) {
-		videoElement = document.querySelector('video');
-		videoElement.srcObject = '';
-		
 		window.stream = stream; // make stream available to console
 		videoElement.srcObject = stream;
+		
+		videoElement.style.display = 'block';
 		// get the active track of the stream
 		const track = window.stream.getVideoTracks()[0];
 		
@@ -68,6 +67,7 @@ if (SUPPORTS_MEDIA_DEVICES) {
 			video: {deviceId: videoSource ? {exact: videoSource} : undefined}
 		};
 		
+		videoElement.style.display = 'none';
 		navigator.mediaDevices.getUserMedia(constraints).
 			then(gotStream).then(gotDevices).catch(handleError);
 	}
