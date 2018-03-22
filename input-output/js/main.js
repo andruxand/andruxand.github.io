@@ -15,7 +15,7 @@ if (SUPPORTS_MEDIA_DEVICES) {
 	
 	var videoElement = document.querySelector('video');
 	var videoSelectb = document.querySelector('button#videoSourceb');
-	var videoStart = document.querySelector('button#videoStart');
+	var videoStart = document.querySelector('button#capture-button');
 	var videoStop = document.querySelector('button#videoStop');
 	var listDevices = [];
 	var currentDevice = 0;
@@ -81,8 +81,8 @@ if (SUPPORTS_MEDIA_DEVICES) {
 		if (listDevices.length = 1){
 			alert('No hay más Cámaras disponibles para este dispositivo');	
 		}else{
-			if (currentDevice+1 < listDevices.length - 1){
-				currentDevice=currentDevice+1;
+			if (currentDevice + 1 <= listDevices.length - 1){
+				currentDevice = currentDevice + 1;
 			}else{
 				currentDevice = 0;  
 			}
