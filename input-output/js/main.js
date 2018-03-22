@@ -13,7 +13,7 @@ if (SUPPORTS_MEDIA_DEVICES) {
 
 	'use strict';
 	
-	var videoElement = document.querySelector('video');
+	var videoElement;
 	var videoSelectb = document.querySelector('button#videoSourceb');
 	var videoStart = document.querySelector('button#capture-button');
 	var videoStop = document.querySelector('button#videoStop');
@@ -35,6 +35,9 @@ if (SUPPORTS_MEDIA_DEVICES) {
 	}
 	
 	function gotStream(stream) {
+		videoElement = document.querySelector('video');
+		videoElement.srcObject = '';
+		
 		window.stream = stream; // make stream available to console
 		videoElement.srcObject = stream;
 		// get the active track of the stream
