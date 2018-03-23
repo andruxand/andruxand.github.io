@@ -667,7 +667,7 @@
 					function takePhoto() {
 						if(window.stream){
 							alert('hola');
-							imageCapture.takePhoto()
+							imageCapture.takePhoto({ fillLightMode: "flash" })
 								.then(blob => {
 									console.log('Photo taken: ' + blob.type + ', ' + blob.size + 'B');
 						
