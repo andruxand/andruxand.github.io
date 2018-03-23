@@ -571,7 +571,7 @@
 					var currentDevice = 0;
 					
 					function gotDevices(deviceInfos) {
-						listDevice = [];	
+						listDevices.splice(0,listDevices.length)
 					  
 						for (var i = 0; i !== deviceInfos.length; ++i) {
 							var deviceInfo = deviceInfos[i];
@@ -596,7 +596,7 @@
 						
 						const imageCapture = new ImageCapture(track)
 						
-						const photoCapabilities = track.getCapabilities();
+						const photoCapabilities = imageCapture.getPhotoCapabilities();
 
 						//todo: check if camera has a torch
 						const btnLightCamera = document.querySelector('#capture-flash-button');
