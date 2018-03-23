@@ -569,7 +569,7 @@
 					var localCanvas = document.getElementById("localCanvas");
 					var listDevices = [];
 					var currentDevice = 0;
-					const track;
+					var track;
 					
 					function gotDevices(deviceInfos) {
 						listDevices.splice(0,listDevices.length)
@@ -608,6 +608,8 @@
 									advanced: [{torch: true}]
 								})
 								.catch(e => console.log(e));
+							}else{
+								alert('no hay torch');	
 							}
 						});
 					  
