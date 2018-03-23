@@ -603,11 +603,6 @@
 						const btnLightCamera = document.querySelector('#capture-flash-button');
 						
 						btnLightCamera.addEventListener('click', function(){
-							if (photoCapabilities.torch) {
-								alert('si hay torch');
-							}else{
-								alert('no hay torch');	
-							}	
 								
 								track.applyConstraints({
 									advanced: [{torch: true}]
@@ -650,9 +645,7 @@
 					
 					function stopCamera() {
 						if (window.stream) {
-							window.stream.getTracks().forEach(function(track) {
-								track.stop();
-							});
+							window.stream.getTracks().forEach(track => track.stop());
 							
 							//clearTimeout(timePoll);
 							//clearTimeout(callTimePoll);
