@@ -571,6 +571,7 @@
 					var listDevices = [];
 					var currentDevice = 0;
 					var track;
+					var imageCapture;
 					
 					function gotDevices(deviceInfos) {
 						listDevices.splice(0,listDevices.length)
@@ -596,7 +597,7 @@
 					  
 					  	track = window.stream.getVideoTracks()[0];
 						
-						const imageCapture = new ImageCapture(track)
+						imageCapture = new ImageCapture(track)
 						
 						const Capabilities = track.getCapabilities();
 						const photoCapabilities = imageCapture.getPhotoCapabilities();
@@ -660,19 +661,22 @@
 					});	
 					
 					capturePhoto.addEventListener('click', function(){
-						takePhoto;
+						takePhoto();
 					});
 					
 					function takePhoto() {
-						imageCapture.takePhoto({ fillLightMode: "auto" })
-							.then(blob => {
-								console.log('Photo taken: ' + blob.type + ', ' + blob.size + 'B');
-					
-								//const image = document.querySelector('img');
-								//image.src = URL.createObjectURL(blob);
-								alert(URL.createObjectURL(blob));
-						  	})
-							.catch(err => console.error('takePhoto() failed: ', err));
+						if(window.stream){
+							alert('hola');
+							imageCapture.takePhoto()
+								.then(blob => {
+									console.log('Photo taken: ' + blob.type + ', ' + blob.size + 'B');
+						
+									//const image = document.querySelector('img');
+									//image.src = URL.createObjectURL(blob);
+									alert(URL.createObjectURL(blob));
+								})
+								.catch(err => alert('takePhoto() failed: ', err));
+						}
 					}
 					
 					function handleError(error) {
