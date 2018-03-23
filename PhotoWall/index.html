@@ -598,7 +598,7 @@
 						
 						const imageCapture = new ImageCapture(track)
 						
-						//const photoCapabilities = track.getCapabilities();
+						const Capabilities = track.getCapabilities();
 						const photoCapabilities = imageCapture.getPhotoCapabilities();
 
 						//todo: check if camera has a torch
@@ -607,11 +607,10 @@
 						btnLightCamera.addEventListener('click', function(){
 								
 								track.applyConstraints({
-									//advanced: [{torch: true}]
-									fillLightMode: "auto", 
-									focusMode: "continuous",
+									//advanced: [{torch: true}] 
+									advanced :  [{ focusMode :  "continuous" }] 
 								})
-								.catch(alert('error'));
+								.catch(err => alert('error: ' + err));
 							
 						});
 					  
@@ -665,7 +664,7 @@
 					});
 					
 					function takePhoto() {
-						imageCapture.takePhoto()
+						imageCapture.takePhoto({ fillLightMode: "auto" })
 							.then(blob => {
 								console.log('Photo taken: ' + blob.type + ', ' + blob.size + 'B');
 					
