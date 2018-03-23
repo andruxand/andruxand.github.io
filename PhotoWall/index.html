@@ -603,7 +603,7 @@
 						const btnLightCamera = document.querySelector('#capture-flash-button');
 						
 						btnLightCamera.addEventListener('click', function(){
-							if (photoCapabilities.torch) {
+							if (photoCapabilities.advanced.torch) {
 								alert('si hay torch');
 							}else{
 								alert('no hay torch');	
