@@ -603,14 +603,14 @@
 						const btnLightCamera = document.querySelector('#capture-flash-button');
 						
 						btnLightCamera.addEventListener('click', function(){
-							if (photoCapabilities.torch) {
+							//if (photoCapabilities.torch) {
 								track.applyConstraints({
 									advanced: [{torch: true}]
 								})
 								.catch(e => console.log(e));
-							}else{
-								alert('no hay torch');	
-							}
+							//}else{
+							//	alert('no hay torch');	
+							//}
 						});
 					  
 					  	// Refresh button list in case labels have become available
@@ -622,7 +622,7 @@
 						
 						var videoSource = listDevices[currentDevice]; //videoSelect.value; 
 						var constraints = {
-							facingMode: 'environment', 
+							facingMode: ['user', 'environment'], 
 							video: {deviceId: videoSource ? {exact: videoSource} : undefined}
 						};
 						
