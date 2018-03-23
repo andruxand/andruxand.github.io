@@ -567,6 +567,7 @@
 					var videoSelect = document.querySelector('button#camera-choose-button');
 					var localVideo = document.getElementById("localVideo");
 					var localCanvas = document.getElementById("localCanvas");
+					var capturePhoto = document.getElementById("capture-button");
 					var listDevices = [];
 					var currentDevice = 0;
 					var track;
@@ -597,7 +598,8 @@
 						
 						const imageCapture = new ImageCapture(track)
 						
-						const photoCapabilities = track.getCapabilities();
+						//const photoCapabilities = track.getCapabilities();
+						const photoCapabilities = imageCapture.getPhotoCapabilities();
 
 						//todo: check if camera has a torch
 						const btnLightCamera = document.querySelector('#capture-flash-button');
@@ -605,9 +607,11 @@
 						btnLightCamera.addEventListener('click', function(){
 								
 								track.applyConstraints({
-									advanced: [{torch: true}]
+									//advanced: [{torch: true}]
+									fillLightMode: "auto", 
+									focusMode: "continuous",
 								})
-								.catch(e => console.log(e));
+								.catch(alert('error'));
 							
 						});
 					  
@@ -655,6 +659,22 @@
 					videoSelect.addEventListener('click', function(){
 						getDevice();
 					});	
+					
+					capturePhoto.addEventListener('click', function(){
+						takePhoto;
+					});
+					
+					function takePhoto() {
+						imageCapture.takePhoto()
+							.then(blob => {
+								console.log('Photo taken: ' + blob.type + ', ' + blob.size + 'B');
+					
+								//const image = document.querySelector('img');
+								//image.src = URL.createObjectURL(blob);
+								alert(URL.createObjectURL(blob));
+						  	})
+							.catch(err => console.error('takePhoto() failed: ', err));
+					}
 					
 					function handleError(error) {
 						console.log('navigator.getUserMedia error: ', error);
