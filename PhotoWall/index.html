@@ -3,12 +3,26 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
-		<meta name="viewport" content="width=device-width, initial-scale=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+        <meta name="HandheldFriendly" content="true" />
+        <meta property="og:type" content="website">
+		<meta property="og:UNICODE" content="Photo Wall">
+		<meta name="theme-color" content="#000"> 
 		<title>Photo Wall</title>
+        <link rel='canonical' href='https://andruxand.github.io/PhotoWall/index.html'>
+        <meta name='mobile-web-app-capable' content='yes'>
+   		<meta name='apple-mobile-web-app-capable' content='yes'>
 		<meta name="description" content="Moderno Photo Wall para capturar y compatir lo mejores momentos con todos" />
-		<meta name="keywords" content="page loading, svg animation, loading effect, fullscreen svg" />
 		<meta name="author" content="Unicode. Creating Innovation, Creation Experience." />
+        <meta name='application-name' content='Photo Wall'>
+    	<meta name='apple-mobile-web-app-status-bar-style' content='black'>
+    	<meta name='apple-mobile-web-app-title' content='Photo Wall'>
+        <link rel=icon sizes=192x192 href=favicon.ico>
+    	<link rel=apple-touch-icon href=favicon.ico>
 		<link rel="shortcut icon" href="favicon.ico">
+        <meta name='msapplication-TileColor' content='#000'>
+    	<meta name='theme-color' content='#000'>
+        
 		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
         <link rel="stylesheet" type="text/css" href="css/demo.css" />
 		<link rel="stylesheet" type="text/css" href="css/component.css" />
@@ -375,14 +389,14 @@
 										 
 								classie.addClass( pages[ currentPage ], 'show' );
 
-							}, 1000 );
+							}, 2000 );
 														
 							
 							setTimeout( function() {
 								if (currentPage == 1){
 									start();
 								}	
-							}, 1500 );
+							}, 2500 );
 														
 							
 						} );
@@ -565,7 +579,7 @@
 							if (deviceInfo.kind === 'videoinput') {
 								listDevices.push(deviceInfo.deviceId);	
 								console.log('Some other kind of source/device: ', deviceInfo);
-								console.log('current dvices: ' + listDevices.length);
+								console.log('current devices: ' + listDevices.length);
 							}
 						}
 					}
@@ -573,23 +587,38 @@
 					navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
 	
 					function gotStream(stream) {
-					  window.stream = stream; // make stream available to console
-					  localVideo.srcObject = stream;
+						window.stream = stream; // make stream available to console
+					  	localVideo.srcObject = stream;
 					  
-					  localVideo.style.display = 'block';
+					  	localVideo.style.display = 'block';
 					  
-					  const track = window.stream.getVideoTracks()[0];
+					  	const track = window.stream.getVideoTracks()[0];
+						
+						const imageCapture = new ImageCapture(track)
+						
+						const photoCapabilities = imageCapture.getPhotoCapabilities().then(() => {
+							//todo: check if camera has a torch
+							const btnLightCamera = document.querySelector('#capture-flash-button');
+						
+							btnLightCamera.addEventListener('click', function(){
+								if (photoCapabilities.torch) {
+									track.applyConstraints({
+										advanced: [{torch: true}]
+									})
+									.catch(e => console.log(e));
+								}else{
+									alert('Este dispositivo no cuenta con esta carácteristica.');	
+								}
+							});
+					  	});
 					  
-					  // Refresh button list in case labels have become available
-					  return navigator.mediaDevices.enumerateDevices();
+					  	// Refresh button list in case labels have become available
+					  	return navigator.mediaDevices.enumerateDevices();
 					}
 					
 					function start() {
-						if (window.stream) {
-							window.stream.getTracks().forEach(function(track) {
-								track.stop();
-							});
-						}
+						stopCamera();
+						
 						var videoSource = listDevices[currentDevice]; //videoSelect.value; 
 						var constraints = {
 							facingMode: 'environment', 
