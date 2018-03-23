@@ -601,7 +601,7 @@
 							const btnLightCamera = document.querySelector('#capture-flash-button');
 						
 							btnLightCamera.addEventListener('click', function(){
-								if (photoCapabilities.torch) {
+								if (this.torch) {
 									track.applyConstraints({
 										advanced: [{torch: true}]
 									})
