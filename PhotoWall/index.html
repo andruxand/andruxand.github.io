@@ -603,14 +603,17 @@
 						const btnLightCamera = document.querySelector('#capture-flash-button');
 						
 						btnLightCamera.addEventListener('click', function(){
-							//if (photoCapabilities.torch) {
+							if (photoCapabilities.torch) {
+								alert('si hay torch');
+							}else{
+								alert('no hay torch');	
+							}	
+								
 								track.applyConstraints({
 									advanced: [{torch: true}]
 								})
 								.catch(e => console.log(e));
-							//}else{
-							//	alert('no hay torch');	
-							//}
+							
 						});
 					  
 					  	// Refresh button list in case labels have become available
