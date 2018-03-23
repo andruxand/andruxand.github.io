@@ -597,7 +597,7 @@
 						
 						const imageCapture = new ImageCapture(track)
 						
-						const photoCapabilities = imageCapture.getPhotoCapabilities();
+						const photoCapabilities = track.getCapabilities();
 
 						//todo: check if camera has a torch
 						const btnLightCamera = document.querySelector('#capture-flash-button');
