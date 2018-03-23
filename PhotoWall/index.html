@@ -569,6 +569,7 @@
 					var localCanvas = document.getElementById("localCanvas");
 					var listDevices = [];
 					var currentDevice = 0;
+					const track;
 					
 					function gotDevices(deviceInfos) {
 						listDevices.splice(0,listDevices.length)
@@ -592,7 +593,7 @@
 					  
 					  	localVideo.style.display = 'block';
 					  
-					  	const track = window.stream.getVideoTracks()[0];
+					  	track = window.stream.getVideoTracks()[0];
 						
 						const imageCapture = new ImageCapture(track)
 						
@@ -607,8 +608,6 @@
 									advanced: [{torch: true}]
 								})
 								.catch(e => console.log(e));
-							}else{
-								alert('Este dispositivo no cuenta con esta carácteristica.');	
 							}
 						});
 					  
