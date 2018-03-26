@@ -630,9 +630,11 @@
 						imageCapture = new ImageCapture(track)
 						
 						const Capabilities = track.getCapabilities();
+						const PhotoCapabilities = imageCapture.getPhotoCapabilities();
 						const currentPhotoSettings = imageCapture.getPhotoSettings();
 						
 						alert(currentPhotoSettings.fillLightMode);
+						alert(currentPhotoSettings.imageWidth);
 						if (!currentPhotoSettings.fillLightMode){
 							flashButton.style.display = 'none';
 						}else{
