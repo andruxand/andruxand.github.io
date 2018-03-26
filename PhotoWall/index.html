@@ -631,18 +631,10 @@
 						console.log(imageCapture);
 						
 						const Capabilities = track.getCapabilities();
-						//const PhotoCapabilities = imageCapture.getPhotoCapabilities();
-						//const currentPhotoSettings = imageCapture.getPhotoSettings();
-						
-						imageCapture.getPhotoCapabilities()
-						  .then(function(photoCapabilities) {
-							return imageCapture.getPhotoSettings();
-						  })
-						  .then(function(photoSettings) {
-							alert(JSON.stringify(photoSettings) );
-							alert( photoSettings.imageWidth);
-						  })
-						  .catch(error => console.error('Error getting camera capabilities and settings:', error));
+						const currentSettings = track.getSettings();
+
+						alert(JSON.stringify(Capabilities));
+						alert(JSON.stringify(currentSettings));
 
 						if (!currentPhotoSettings.fillLightMode){
 							flashButton.style.display = 'none';
