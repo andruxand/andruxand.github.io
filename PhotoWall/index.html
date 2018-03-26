@@ -639,7 +639,7 @@
 							return imageCapture.getPhotoSettings();
 						  })
 						  .then(function(photoSettings) {
-							alert( photoSettings.fillLightMode);
+							alert(JSON.stringify(photoSettings) );
 							alert( photoSettings.imageWidth);
 						  })
 						  .catch(error => console.error('Error getting camera capabilities and settings:', error));
