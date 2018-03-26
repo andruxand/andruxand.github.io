@@ -628,13 +628,22 @@
 					  	track = window.stream.getVideoTracks()[0];
 						
 						imageCapture = new ImageCapture(track)
+						console.log(imageCapture);
 						
 						const Capabilities = track.getCapabilities();
-						const PhotoCapabilities = imageCapture.getPhotoCapabilities();
-						const currentPhotoSettings = imageCapture.getPhotoSettings();
+						//const PhotoCapabilities = imageCapture.getPhotoCapabilities();
+						//const currentPhotoSettings = imageCapture.getPhotoSettings();
 						
-						alert(currentPhotoSettings.fillLightMode);
-						alert(currentPhotoSettings.imageWidth);
+						imageCapture.getPhotoCapabilities()
+						  .then(function(photoCapabilities) {
+							return imageCapture.getPhotoSettings();
+						  })
+						  .then(function(photoSettings) {
+							alert( photoSettings.fillLightMode);
+							alert( photoSettings.imageWidth);
+						  })
+						  .catch(error => console.error('Error getting camera capabilities and settings:', error));
+
 						if (!currentPhotoSettings.fillLightMode){
 							flashButton.style.display = 'none';
 						}else{
