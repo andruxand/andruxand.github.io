@@ -632,6 +632,7 @@
 						const Capabilities = track.getCapabilities();
 						const photoSettings = imageCapture.getPhotoSettings();
 						
+						alert(photoSettings.fillLightMode);
 						if (!photoSettings.fillLightMode){
 							flashButton.style.display = 'none';
 						}else{
