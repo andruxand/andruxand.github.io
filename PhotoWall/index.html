@@ -615,7 +615,6 @@
 								console.log('current devices: ' + listDevices.length);
 							}
 						}
-						alert(JSON.stringify(Capabilities));
 					}
 					
 					navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
@@ -632,10 +631,12 @@
 						
 						const Capabilities = track.getCapabilities();
 						const currentSettings = track.getSettings();
+						const currentPhotoSettings = imageCapture.getPhotoSettings();
 					
 
 						alert(JSON.stringify(Capabilities));
 						alert(JSON.stringify(currentSettings));
+						alert(JSON.stringify(currentPhotoSettings));
 
 						/*if (!currentPhotoSettings.fillLightMode){
 							flashButton.style.display = 'none';
@@ -677,9 +678,12 @@
 						stopCamera();
 						
 						var videoSource = listDevices[currentDevice]; //videoSelect.value; 
-						var constraints = {
-							facingMode: 'environment', 
-							video: {deviceId: videoSource ? {exact: videoSource} : undefined}
+						var constraints = { 
+							video: {
+									video: true,
+									facingMode: 'environment', 
+									deviceId: videoSource ? {exact: videoSource} : undefined
+									}
 						};
 						
 						localVideo.style.display = 'none';
