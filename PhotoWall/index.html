@@ -615,6 +615,7 @@
 								console.log('current devices: ' + listDevices.length);
 							}
 						}
+						alert(JSON.stringify(Capabilities));
 					}
 					
 					navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
@@ -628,15 +629,15 @@
 					  	track = window.stream.getVideoTracks()[0];
 						
 						imageCapture = new ImageCapture(track)
-						console.log(imageCapture);
 						
 						const Capabilities = track.getCapabilities();
 						const currentSettings = track.getSettings();
+					
 
 						alert(JSON.stringify(Capabilities));
 						alert(JSON.stringify(currentSettings));
 
-						if (!currentPhotoSettings.fillLightMode){
+						/*if (!currentPhotoSettings.fillLightMode){
 							flashButton.style.display = 'none';
 						}else{
 							flashButton.style.display = 'bock';
@@ -661,7 +662,7 @@
 								};			
 							});
 							
-						}						
+						}	*/					
 					
 						track.applyConstraints({
 							advanced :  [{ focusMode :  "continuous" }] 
@@ -677,13 +678,13 @@
 						
 						var videoSource = listDevices[currentDevice]; //videoSelect.value; 
 						var constraints = {
-							facingMode: ['user', 'environment'], 
+							facingMode: 'environment', 
 							video: {deviceId: videoSource ? {exact: videoSource} : undefined}
 						};
 						
 						localVideo.style.display = 'none';
 						navigator.mediaDevices.getUserMedia(constraints).
-							then(gotStream).then(gotDevices).catch(handleError);
+							then(gotStream).then(gotDevices).catch(handleError);	
 					}
 					
 					function getDevice() {
