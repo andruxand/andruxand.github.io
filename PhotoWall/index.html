@@ -630,19 +630,19 @@
 						imageCapture = new ImageCapture(track)
 						
 						const Capabilities = track.getCapabilities();
-						const photoSettings = imageCapture.getPhotoSettings();
+						const currentPhotoSettings = imageCapture.getPhotoSettings();
 						
-						alert(photoSettings.fillLightMode);
-						if (!photoSettings.fillLightMode){
+						alert(currentPhotoSettings.fillLightMode);
+						if (!currentPhotoSettings.fillLightMode){
 							flashButton.style.display = 'none';
 						}else{
 							flashButton.style.display = 'bock';
 							
 							imageCaptureConfig = {
-								fillLightMode: photoSettings.fillLightMode, 
+								fillLightMode: currentPhotoSettings.fillLightMode, 
 							};
 							
-							showIconFlash(photoSettings.fillLightMode);
+							showIconFlash(currentPhotoSettings.fillLightMode);
 							
 							flashButton.addEventListener('click', function(){
 								if(currentFlashMode + 1 <= 3){
