@@ -235,7 +235,7 @@
 			}
 			
 			#icon-flash-off {
-				display: block;	
+				display: none;	
 			}
 			
 			#icon-flash-auto {
@@ -568,10 +568,40 @@
 					var localVideo = document.getElementById("localVideo");
 					var localCanvas = document.getElementById("localCanvas");
 					var capturePhoto = document.getElementById("capture-button");
+					var flashButton = document.querySelector('#icon-flash-off');
 					var listDevices = [];
 					var currentDevice = 0;
 					var track;
+					var imageCaptureConfig;
 					var imageCapture;
+					var flashMode = ['flash', 'auto', 'off'];
+					var currentFlashMode;
+					
+					function showIconFlash(fillLightMode){
+						
+						switch(fillLightMode){
+							case 'flash':
+								currentFlashMode = 0;
+								document.querySelector('svg#icon-flash-on').style.display = 'block';
+								document.querySelector('svg#icon-flash-off').style.display = 'none';
+								document.querySelector('svg#icon-flash-auto').style.display = 'none';
+								break;
+							case 'auto':
+								currentFlashMode = 1;
+								document.querySelector('svg#icon-flash-auto').style.display = 'block';
+								document.querySelector('svg#icon-flash-off').style.display = 'none';
+								document.querySelector('svg#icon-flash-on').style.display = 'none';
+								break;
+							case 'off':
+								currentFlashMode = 2;
+								document.querySelector('svg#icon-flash-off').style.display = 'block';
+								document.querySelector('svg#icon-flash-auto').style.display = 'none';
+								document.querySelector('svg#icon-flash-on').style.display = 'none';
+								break;		
+							
+						}
+								
+					}
 					
 					function gotDevices(deviceInfos) {
 						listDevices.splice(0,listDevices.length)
@@ -600,21 +630,40 @@
 						imageCapture = new ImageCapture(track)
 						
 						const Capabilities = track.getCapabilities();
-						const photoCapabilities = imageCapture.getPhotoCapabilities();
-
-						//todo: check if camera has a torch
-						const btnLightCamera = document.querySelector('#capture-flash-button');
+						const photoSettings = imageCapture.getPhotoSettings();
 						
-						btnLightCamera.addEventListener('click', function(){
-								
-								track.applyConstraints({
-									//advanced: [{torch: true}] 
-									advanced :  [{ focusMode :  "continuous" }] 
-								})
-								.catch(err => alert('error: ' + err));
+						if (!photoSettings.fillLightMode){
+							flashButton.style.display = 'none';
+						}else{
+							flashButton.style.display = 'bock';
 							
-						});
-					  
+							imageCaptureConfig = {
+								fillLightMode: photoSettings.fillLightMode, 
+							};
+							
+							showIconFlash(photoSettings.fillLightMode);
+							
+							flashButton.addEventListener('click', function(){
+								if(currentFlashMode + 1 <= 3){
+									currentFlashMode = currentFlashMode + 1;	
+								}else{
+									currentFlashMode = 0;
+								}
+								
+								showIconFlash(flashMode[currentFlashMode]);
+								
+								imageCaptureConfig = {
+									fillLightMode: flashMode[currentFlashMode], 
+								};			
+							});
+							
+						}						
+					
+						track.applyConstraints({
+							advanced :  [{ focusMode :  "continuous" }] 
+						})
+						.catch(err => console.log('error: ' + err));
+
 					  	// Refresh button list in case labels have become available
 					  	return navigator.mediaDevices.enumerateDevices();
 					}
@@ -667,7 +716,7 @@
 					function takePhoto() {
 						if(window.stream){
 							alert('hola');
-							imageCapture.takePhoto({ fillLightMode: "flash" })
+							imageCapture.takePhoto(imageCaptureConfig)
 								.then(blob => {
 									console.log('Photo taken: ' + blob.type + ', ' + blob.size + 'B');
 						
