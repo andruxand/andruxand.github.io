@@ -568,7 +568,7 @@
 					var localVideo = document.getElementById("localVideo");
 					var localCanvas = document.getElementById("localCanvas");
 					var capturePhoto = document.getElementById("capture-button");
-					var flashButton = document.querySelector('#icon-flash-off');
+					var flashButton = document.querySelector('#capture-flash-button');
 					var listDevices = [];
 					var currentDevice = 0;
 					var track;
@@ -644,22 +644,22 @@
 						if (currentDevice == 0){
 							flashButton.style.display = 'none';
 						}else{
-							flashButton.style.display = 'bock';
+							showIconFlash(flashMode[currentFlashMode]);
+							flashButton.style.display = 'block';
 							
 							flashButton.addEventListener('click', function(){
-								if(currentFlashMode + 1 <= 3){
+								if(currentFlashMode + 1 < 3){
 									currentFlashMode = currentFlashMode + 1;	
 								}else{
 									currentFlashMode = 0;
 								}
-								
+								alert(currentFlashMode);
 								showIconFlash(flashMode[currentFlashMode]);
-								
+										
 								imageCaptureConfig = {
 									fillLightMode: flashMode[currentFlashMode], 
-								};			
-							});
-							
+								};					
+							});	
 						}					
 					
 						track.applyConstraints({
