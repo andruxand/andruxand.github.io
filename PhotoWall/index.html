@@ -575,7 +575,7 @@
 					var imageCaptureConfig;
 					var imageCapture;
 					var flashMode = ['flash', 'auto', 'off'];
-					var currentFlashMode;
+					var currentFlashMode = 1; // default auto
 					
 					function showIconFlash(fillLightMode){
 						
@@ -611,8 +611,7 @@
 						
 							if (deviceInfo.kind === 'videoinput') {
 								listDevices.push(deviceInfo.deviceId);	
-								console.log('Some other kind of source/device: ', deviceInfo);
-								console.log('current devices: ' + listDevices.length);
+								//console.log('Some other kind of source/device: ', deviceInfo);
 							}
 						}
 					}
@@ -625,29 +624,27 @@
 					  
 					  	localVideo.style.display = 'block';
 					  
-					  	track = window.stream.getVideoTracks()[0];
+					  	track = stream.getVideoTracks()[0];
 						
 						imageCapture = new ImageCapture(track)
 						
 						const Capabilities = track.getCapabilities();
-						const currentSettings = track.getSettings();
-						const currentPhotoSettings = imageCapture.getPhotoSettings();
-					
+						//const currentSettings = track.getSettings();
+						//const currentPhotoSettings = imageCapture.getPhotoSettings();
 
-						alert(JSON.stringify(Capabilities));
-						alert(JSON.stringify(currentSettings));
-						alert(JSON.stringify(currentPhotoSettings));
+						//alert(JSON.stringify(currentSettings));
+						
+						alert(JSON.stringify (Capabilities ));
+						
+						imageCapture.getPhotoSettings()
+							.then(function(settings){
+								alert(JSON.stringify(settings));
+						});
 
-						/*if (!currentPhotoSettings.fillLightMode){
+						if (currentDevice == 0){
 							flashButton.style.display = 'none';
 						}else{
 							flashButton.style.display = 'bock';
-							
-							imageCaptureConfig = {
-								fillLightMode: currentPhotoSettings.fillLightMode, 
-							};
-							
-							showIconFlash(currentPhotoSettings.fillLightMode);
 							
 							flashButton.addEventListener('click', function(){
 								if(currentFlashMode + 1 <= 3){
@@ -663,7 +660,7 @@
 								};			
 							});
 							
-						}	*/					
+						}					
 					
 						track.applyConstraints({
 							advanced :  [{ focusMode :  "continuous" }] 
@@ -679,16 +676,15 @@
 						
 						var videoSource = listDevices[currentDevice]; //videoSelect.value; 
 						var constraints = { 
-							video: {
-									video: true,
-									facingMode: 'environment', 
+							'video': {
+									facingMode: 'user', 
 									deviceId: videoSource ? {exact: videoSource} : undefined
 									}
 						};
 						
 						localVideo.style.display = 'none';
-						navigator.mediaDevices.getUserMedia(constraints).
-							then(gotStream).then(gotDevices).catch(handleError);	
+						navigator.mediaDevices.getUserMedia(constraints)
+						.then(gotStream).then(gotDevices).catch(handleError);	
 					}
 					
 					function getDevice() {
