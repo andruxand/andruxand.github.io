@@ -642,10 +642,10 @@
 						});
 
 						if (currentDevice == 0){
-							flashButton.style.display = 'none';
+							flashButton.style.visibility = 'hidden';
 						}else{
 							showIconFlash(flashMode[currentFlashMode]);
-							flashButton.style.display = 'block';
+							flashButton.style.visibility = 'visible';
 							
 							flashButton.addEventListener('click', function(){
 								if(currentFlashMode + 1 < 3){
