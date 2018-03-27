@@ -611,7 +611,7 @@
 						
 							if (deviceInfo.kind === 'videoinput') {
 								listDevices.push(deviceInfo.deviceId);	
-								//console.log('Some other kind of source/device: ', deviceInfo);
+								console.log('Some other kind of source/device: ', deviceInfo);
 							}
 						}
 					}
@@ -632,15 +632,6 @@
 						//const currentSettings = track.getSettings();
 						//const currentPhotoSettings = imageCapture.getPhotoSettings();
 
-						//alert(JSON.stringify(currentSettings));
-						
-						alert(JSON.stringify (Capabilities ));
-						
-						imageCapture.getPhotoSettings()
-							.then(function(settings){
-								alert(JSON.stringify(settings));
-						});
-
 						if (currentDevice == 0){
 							flashButton.style.visibility = 'hidden';
 						}else{
@@ -653,7 +644,7 @@
 								}else{
 									currentFlashMode = 0;
 								}
-								alert(currentFlashMode);
+
 								showIconFlash(flashMode[currentFlashMode]);
 										
 								imageCaptureConfig = {
@@ -720,7 +711,6 @@
 					
 					function takePhoto() {
 						if(window.stream){
-							alert('hola');
 							imageCapture.takePhoto(imageCaptureConfig)
 								.then(blob => {
 									console.log('Photo taken: ' + blob.type + ', ' + blob.size + 'B');
