@@ -632,7 +632,7 @@
 						var percentage = parseFloat((battery.level * 100).toFixed(2));
 					
 						if (!bateria.charging) {
-							if ( (percentage <= 10) && (currentFlashMode == 1 || currentFlashMode == 2) ) {
+							if ( (percentage <= 50) && (currentFlashMode == 1 || currentFlashMode == 2) ) {
 						  		alert('Nivel de bateria bajo. No se activará el flash.' +
 											+ '\n Nivel de bateria: ' + percentage * 100 + '%');
 							}
