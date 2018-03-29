@@ -653,8 +653,12 @@
 						const Capabilities = track.getCapabilities();
 						//const currentSettings = track.getSettings();
 						//const currentPhotoSettings = imageCapture.getPhotoSettings();
+						imageCapture.getPhotoCapabilities()
+							.then(function(PhotoCapabilities){
+								const PCapabilities = PhotoCapabilities.fillLightMode;
+						});
 
-						if (currentDevice == 0){
+						if (PCapabilities.length == 0){
 							flashButton.style.visibility = 'hidden';
 							document.getElementById(cameraMode[currentDevice]).style.display = 'block';
 						}else{
@@ -693,7 +697,7 @@
 						var videoSource = listDevices[currentDevice]; //videoSelect.value; 
 						var constraints = { 
 							video: {
-									facingMode: 'environment', 
+									facingMode: ['user', 'environment'], 
 									deviceId: videoSource ? {exact: videoSource} : undefined
 									}
 						};
@@ -737,12 +741,7 @@
 					
 					function takePhoto() {
 						if(window.stream){
-							imageCapture.getPhotoCapabilities()
-								.then(function(PhotoCapabilities){
-								
-							alert(JSON.stringify(PhotoCapabilities.fillLightMode[2]));
-						
-							imageCapture.takePhoto({ fillLightMode : PhotoCapabilities.fillLightMode[2] })
+							imageCapture.takePhoto(imageCaptureConfig)
 								.then(blob => {
 									console.log('Photo taken: ' + blob.type + ', ' + blob.size + 'B');
 						
@@ -751,7 +750,6 @@
 									alert(URL.createObjectURL(blob));
 								})
 								.catch(err => alert('takePhoto() failed: ', err));
-							});	
 						}
 					}
 					
