@@ -653,6 +653,12 @@
 						const Capabilities = track.getCapabilities();
 						//const currentSettings = track.getSettings();
 						//const currentPhotoSettings = imageCapture.getPhotoSettings();
+						
+						imageCapture.getPhotoCapabilities()
+							.then(function(PhotoCapabilities){
+								alert(JSON.stringify(PhotoCapabilities));
+								alert(JSON.stringify(PhotoCapabilities.fillLightMode));
+						});
 
 						if (currentDevice == 0){
 							flashButton.style.visibility = 'hidden';
