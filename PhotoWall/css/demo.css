@@ -210,7 +210,7 @@ section p {
 }
 
 .slide__bg--3 {
-	background: #272526;
+	background: #444344;
 	font-family: 'Questrial', sans-serif;
 }
 
@@ -245,7 +245,7 @@ section p {
 .content-style-text #icon-close {
     top: 0;
     right: 0;
-    color: rgba(0,0,0,0.2);
+    /*color: rgba(0,0,0,0.2);*/
 }
 
 
@@ -303,6 +303,9 @@ section p {
     color: #f9e1c9;
     font-weight: bold;
 }
+.hidden {
+	visibility: hidden;	
+}
 
 @media screen and (max-width: 40em) {
 
@@ -342,4 +345,175 @@ section p {
 		text-align: center;
 		margin-top: 0%;
 	}
+}
+
+/**************************************************/
+/*             Style CSS for Photo Filter         */
+/**************************************************/
+
+.mi-slider {
+	position: relative;
+	margin-top: 30px;
+	height: auto;
+	opacity: 0;
+	-webkit-transition: opacity .8s ease-in-out;
+    -moz-transition: opacity .8s ease-in-out;
+    -o-transition: opacity .8s ease-in-out;
+    -ms-transition: opacity .8s ease-in-out;
+    transition: opacity .8s ease-in-out;
+	white-space: nowrap;
+    overflow-x: auto;
+}
+.mi-slider ul {
+	list-style-type: none;
+	/*position: absolute;*/
+	width: 100%;
+	left: 0;
+	bottom: 140px;
+	/*overflow: hidden;*/
+	text-align: center;
+	padding: 0px;
+	margin: 0px;
+}
+.no-js .mi-slider ul {
+	position: relative;
+	left: auto;
+	bottom: auto;
+	margin: 0;
+	overflow: visible;
+}
+.mi-slider ul li {
+	display: inline-block;
+	/*padding: 20px;*/
+	padding: 0px;
+	width: 17%;
+	transform: translateX(600%);
+	transition: opacity 0.2s linear;
+}
+.no-js  .mi-slider  ul  li {
+	 transform : translateX (0); 
+}
+.mi-slider ul li img {
+	display: block;
+	margin: 0 auto;
+}
+.mi-slider ul li img {
+	width: 100%;
+	border: none;
+}
+::-webkit-scrollbar {
+    height: 0px;
+}
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+}
+
+/* animations */
+
+/* fade IN/OUT */
+
+.mi-slider.fadeIn {
+	opacity: 1;    
+}
+
+.mi-slider.fadeOut {
+	opacity: 0;    
+}
+
+/* moveFromRight */
+
+.mi-slider ul.mi-moveFromRight li {
+	animation: moveFromRight .6s ease-in-out both;
+}
+
+/* moveFromLeft */
+
+.mi-slider ul.mi-moveFromLeft li {
+	animation: moveFromLeft .6s ease-in-out both;
+}
+
+/* moveFromRight delay */
+
+.mi-slider ul.mi-moveFromRight li:first-child {
+	-webkit-animation-delay: 0ms;
+	animation-delay: 0ms;
+	margin-left: 10px;
+}
+.mi-slider ul.mi-moveFromRight li:nth-child(2) {
+	-webkit-animation-delay: 30ms;
+	animation-delay: 30ms;
+}
+.mi-slider ul.mi-moveFromRight li:nth-child(3) {
+	-webkit-animation-delay: 60ms;
+	animation-delay: 60ms;
+}
+.mi-slider ul.mi-moveFromRight li:nth-child(4) {
+	-webkit-animation-delay: 90ms;
+	animation-delay: 90ms;
+}
+.mi-slider ul.mi-moveFromRight li:nth-child(5) {
+	-webkit-animation-delay: 120ms;
+	animation-delay: 120ms;
+}
+.mi-slider ul.mi-moveFromRight li:nth-child(6) {
+	-webkit-animation-delay: 150ms;
+	animation-delay: 150ms;
+}
+.mi-slider ul.mi-moveFromRight li:last-child {
+	margin-right: 10px;
+}
+
+/* moveFromLeft delay */
+
+.mi-slider ul.mi-moveFromLeft li:first-child {
+	-webkit-animation-delay: 150ms;
+	animation-delay: 150ms;
+	margin-left: 10px;
+}
+.mi-slider ul.mi-moveFromLeft li:nth-child(2) {
+	-webkit-animation-delay: 130ms;
+	animation-delay: 130ms;
+}
+.mi-slider ul.mi-moveFromLeft li:nth-child(3) {
+	-webkit-animation-delay: 90ms;
+	animation-delay: 90ms;
+}
+.mi-slider ul.mi-moveFromLeft li:nth-child(4) {
+	-webkit-animation-delay: 60ms;
+	animation-delay: 60ms;
+}
+.mi-slider ul.mi-moveFromLeft li:nth-child(5) {
+	-webkit-animation-delay: 30ms;
+	animation-delay: 30ms;
+}
+.mi-slider ul.mi-moveFromLeft li:nth-child(65) {
+	-webkit-animation-delay: 0ms;
+	animation-delay: 0ms;
+}
+.mi-slider ul.mi-moveFromLeft li:last-child {
+	margin-right: 10px;
+}
+div#mi-slider ul li {
+    border: 2px solid #fff;
+}
+
+div#mi-slider ul li:hover, div#mi-slider ul li:focus {
+    border-color: #10BFC9;
+}
+div#mi-slider ul li.current-filter {
+	border-color: #10BFC9;	
+}
+
+@keyframes moveFromRight {
+	0% { transform: translateX(600%); }
+	100% { transform: translateX(0); }
+}
+@keyframes moveFromLeft {
+	0% { transform: translateX(0); }
+	100% { transform: translateX(600%); }
 }
