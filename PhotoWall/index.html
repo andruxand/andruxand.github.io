@@ -680,10 +680,9 @@
 						const Capabilities = track.getCapabilities();
 						//const currentSettings = track.getSettings();
 						//const currentPhotoSettings = imageCapture.getPhotoSettings();
-						//PCapabilities = null;
 						imageCapture.getPhotoCapabilities()
 							.then(function(PhotoCapabilities){
-								PCapabilities = PhotoCapabilities.fillLightMode;
+								PCapabilities = (PhotoCapabilities.fillLightMode)?PhotoCapabilities.fillLightMode:null;
 						});
 						alert(PCapabilities);
 						if ( (typeof PCapabilities === 'undefined') || (PCapabilities == null) ){
