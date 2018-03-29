@@ -389,6 +389,7 @@ section p {
 	width: 17%;
 	transform: translateX(600%);
 	transition: opacity 0.2s linear;
+	float: left;
 }
 .no-js  .mi-slider  ul  li {
 	 transform : translateX (0); 
