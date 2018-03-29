@@ -653,11 +653,6 @@
 						const Capabilities = track.getCapabilities();
 						//const currentSettings = track.getSettings();
 						//const currentPhotoSettings = imageCapture.getPhotoSettings();
-						
-						imageCapture.getPhotoCapabilities()
-							.then(function(PhotoCapabilities){
-								alert(JSON.stringify(PhotoCapabilities.fillLightMode[2]));
-						});
 
 						if (currentDevice == 0){
 							flashButton.style.visibility = 'hidden';
@@ -742,7 +737,12 @@
 					
 					function takePhoto() {
 						if(window.stream){
-							imageCapture.takePhoto({ fillLightMode : "flash" })
+							imageCapture.getPhotoCapabilities()
+								.then(function(PhotoCapabilities){
+								
+							alert(JSON.stringify(PhotoCapabilities.fillLightMode[2]));
+						
+							imageCapture.takePhoto({ fillLightMode : PhotoCapabilities.fillLightMode[2] })
 								.then(blob => {
 									console.log('Photo taken: ' + blob.type + ', ' + blob.size + 'B');
 						
@@ -751,6 +751,7 @@
 									alert(URL.createObjectURL(blob));
 								})
 								.catch(err => alert('takePhoto() failed: ', err));
+							});	
 						}
 					}
 					
