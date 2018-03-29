@@ -693,7 +693,7 @@
 						var videoSource = listDevices[currentDevice]; //videoSelect.value; 
 						var constraints = { 
 							'video': {
-									facingMode: 'user', 
+									facingMode: ['user', 'environment'], 
 									deviceId: videoSource ? {exact: videoSource} : undefined
 									}
 						};
