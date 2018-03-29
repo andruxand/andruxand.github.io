@@ -636,20 +636,22 @@
 					}
 					
 					function readBattery(b) {
+						var result = false;
+						
 						bateria = b || bateria;
 					
 						var percentage = parseFloat((bateria.level * 100).toFixed(2));
 					
 						if (!bateria.charging) {
 							if ( (percentage <= 50) && ((currentFlashMode == 0) || (currentFlashMode == 1)) ) {
-								return true;
+								result =  true;
 								if(!batteryAlert){
 									batteryAlert = true;
 						  			alert('Nivel de bateria bajo (' + percentage + '%). No se activará el flash.');
 								}
 							}
 						}
-						return false;
+						return result;
 					}
 					
 					function gotDevices(deviceInfos) {
@@ -695,6 +697,7 @@
 							}else{
 								showIconFlash(flashMode[currentFlashMode]);	
 							}
+							alert(verifyBattery());
 							
 							flashButton.style.visibility = 'visible';
 							
