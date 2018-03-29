@@ -656,7 +656,6 @@
 						
 						imageCapture.getPhotoCapabilities()
 							.then(function(PhotoCapabilities){
-								alert(JSON.stringify(PhotoCapabilities));
 								alert(JSON.stringify(PhotoCapabilities.fillLightMode));
 						});
 
@@ -743,7 +742,7 @@
 					
 					function takePhoto() {
 						if(window.stream){
-							imageCapture.takePhoto( {fillLightMode: 'flash'} )
+							imageCapture.takePhoto({ FillLightMode : "flash" })
 								.then(blob => {
 									console.log('Photo taken: ' + blob.type + ', ' + blob.size + 'B');
 						
