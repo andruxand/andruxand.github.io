@@ -626,6 +626,14 @@
 								
 					}
 					
+					function verifyBattery(){
+						if (navigator.battery) {
+							readBattery(navigator.battery);
+						}else if (navigator.getBattery) {
+							navigator.getBattery().then(readBattery);
+						}	
+					}
+					
 					function readBattery(b) {
 						bateria = b || bateria;
 					
@@ -634,8 +642,8 @@
 					
 						if (!bateria.charging) {
 							if ( (percentage <= 50) && (currentFlashMode == 1 || currentFlashMode == 2) ) {
-						  		alert('Nivel de bateria bajo. No se activará el flash.' +
-											+ '\n Nivel de bateria: ' + percentage * 100 + '%');
+								currentFlashMode = 0;
+						  		alert('Nivel de bateria bajo (' + percentage + '%). No se activará el flash.');
 							}
 						}
 					}
@@ -673,6 +681,8 @@
 							.then(function(PhotoCapabilities){
 								PCapabilities = PhotoCapabilities.fillLightMode;
 						});
+						
+						verifyBattery();
 
 						if (typeof PCapabilities === 'undefined'){
 							flashButton.style.visibility = 'hidden';
@@ -690,11 +700,7 @@
 									currentFlashMode = 0;
 								}
 								
-								if (navigator.battery) {
-									readBattery(navigator.battery);
-								}else if (navigator.getBattery) {
-									navigator.getBattery().then(readBattery);
-								}
+								verifyBattery();
 
 								showIconFlash(flashMode[currentFlashMode]);
 										
