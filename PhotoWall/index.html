@@ -629,7 +629,8 @@
 					function readBattery(b) {
 						bateria = b || bateria;
 					
-						var percentage = parseFloat((battery.level * 100).toFixed(2));
+						var percentage = parseFloat((bateria.level * 100).toFixed(2));
+						alert('nivel: ' + percentage);
 					
 						if (!bateria.charging) {
 							if ( (percentage <= 50) && (currentFlashMode == 1 || currentFlashMode == 2) ) {
