@@ -690,9 +690,10 @@
 							flashButton.style.visibility = 'hidden';
 							document.getElementById(cameraMode[currentDevice]).style.display = 'block';
 						}else{
+							showIconFlash(flashMode[currentFlashMode]);
+							
 							verifyBattery();
 							
-							showIconFlash(flashMode[currentFlashMode]);
 							flashButton.style.visibility = 'visible';
 							
 							document.getElementById(cameraMode[currentDevice]).style.display = 'block';
@@ -704,10 +705,9 @@
 									currentFlashMode = 0;
 								}
 								
-								verifyBattery();
-
-								alert(flashMode[currentFlashMode]);
 								showIconFlash(flashMode[currentFlashMode]);
+								
+								verifyBattery();
 										
 								imageCaptureConfig = {
 									fillLightMode: flashMode[currentFlashMode], 
