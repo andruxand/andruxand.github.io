@@ -599,6 +599,7 @@
 					var currentFlashMode = 1; // default auto
 					var cameraMode = ['icon-camera-rear', 'icon-camera-front'];
 					var bateria;
+					var batteryAlert = false;
 					
 					function showIconFlash(fillLightMode){
 						
@@ -638,12 +639,14 @@
 						bateria = b || bateria;
 					
 						var percentage = parseFloat((bateria.level * 100).toFixed(2));
-						alert('nivel: ' + percentage);
 					
 						if (!bateria.charging) {
 							if ( (percentage <= 50) && (currentFlashMode == 1 || currentFlashMode == 2) ) {
 								currentFlashMode = 0;
-						  		alert('Nivel de bateria bajo (' + percentage + '%). No se activará el flash.');
+								if(!batteryAlert){
+									batteryAlert = true;
+						  			alert('Nivel de bateria bajo (' + percentage + '%). No se activará el flash.');
+								}
 							}
 						}
 					}
@@ -682,8 +685,6 @@
 								PCapabilities = PhotoCapabilities.fillLightMode;
 						});
 						
-						verifyBattery();
-
 						if (typeof PCapabilities === 'undefined'){
 							flashButton.style.visibility = 'hidden';
 							document.getElementById(cameraMode[currentDevice]).style.display = 'block';
@@ -692,6 +693,8 @@
 							flashButton.style.visibility = 'visible';
 							
 							document.getElementById(cameraMode[currentDevice]).style.display = 'block';
+							
+							verifyBattery();
 							
 							flashButton.addEventListener('click', function(){
 								if(currentFlashMode + 1 < 3){
