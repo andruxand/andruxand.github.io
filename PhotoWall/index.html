@@ -643,6 +643,7 @@
 						if (!bateria.charging) {
 							if ( (percentage <= 50) && ((currentFlashMode == 0) || (currentFlashMode == 1)) ) {
 								currentFlashMode = 2;
+								alert('nuevo modo: ' + currentFlashMode);
 								if(!batteryAlert){
 									batteryAlert = true;
 						  			alert('Nivel de bateria bajo (' + percentage + '%). No se activará el flash.');
