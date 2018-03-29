@@ -598,6 +598,7 @@
 					var flashMode = ['flash', 'auto', 'off'];
 					var currentFlashMode = 1; // default auto
 					var cameraMode = ['icon-camera-rear', 'icon-camera-front'];
+					var bateria  = navigator.battery || navigator.mozBattery
 					
 					function showIconFlash(fillLightMode){
 						
@@ -673,6 +674,15 @@
 									currentFlashMode = currentFlashMode + 1;	
 								}else{
 									currentFlashMode = 0;
+								}
+								
+								if( (bateria){
+									if(!bateria.charging){
+										if( (currentFlashMode == 2) && ((bateria.level * 100) <= 10) ){
+											alert('Nivel de bateria bajo. No se activará el flash.' +
+											+ '\n Nivel de bateria: ' + bateria.level * 100 + '%');	
+										}
+									}
 								}
 
 								showIconFlash(flashMode[currentFlashMode]);
