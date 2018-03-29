@@ -641,7 +641,7 @@
 						var percentage = parseFloat((bateria.level * 100).toFixed(2));
 					
 						if (!bateria.charging) {
-							if ( (percentage <= 50) && (currentFlashMode == 1 || currentFlashMode == 2) ) {
+							if ( (percentage <= 50) && ((currentFlashMode == 0) || (currentFlashMode == 1)) ) {
 								currentFlashMode = 2;
 								if(!batteryAlert){
 									batteryAlert = true;
@@ -684,7 +684,7 @@
 							.then(function(PhotoCapabilities){
 								PCapabilities = (PhotoCapabilities.fillLightMode)?PhotoCapabilities.fillLightMode:null;
 						});
-						alert(PCapabilities);
+
 						if ( (typeof PCapabilities === 'undefined') || (PCapabilities == null) ){
 							flashButton.style.visibility = 'hidden';
 							document.getElementById(cameraMode[currentDevice]).style.display = 'block';
