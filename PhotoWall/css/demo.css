@@ -499,7 +499,7 @@ section p {
 	margin-right: 10px;
 }
 div#mi-slider ul li {
-    border: 2px solid #fff;
+    border: 1px solid #fff;
 }
 
 div#mi-slider ul li:hover, div#mi-slider ul li:focus {
