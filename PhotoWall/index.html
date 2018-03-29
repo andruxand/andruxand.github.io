@@ -82,10 +82,6 @@
 				-webkit-filter: contrast(1.5); /* 1.5 = 150% */ 
 				filter: contrast(1.5); 
 			}
-			.drop-shadow { 
-				-webkit-filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.9)); 
-				filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.9)); 
-			}
 		
 			#localCanvas {
 				bottom: 0;
@@ -290,7 +286,7 @@
 
 			<!-- The new page dummy; this would be dynamically loaded content -->
 			<div class="container" id="page-2">
-				<div class="view-element hidden" id="capture-view" style="">
+				<div class="view-element" id="capture-view" style="">
                 	<div class="toolbar">
                     	<a class="dark pageload" href="#page-1" id="capture-view-close" aria-label="Close" title="Close" tabindex="0">
                         	<svg viewBox="0 0 24 24">
@@ -299,8 +295,10 @@
                         </a>
                             
                         <button class="dark" id="camera-choose-button" aria-label="Choose camera" title="Choose camera" tabindex="0">
-                        	<svg viewBox="0 0 24 24">
+                        	<svg id="icon-camera-rear" viewBox="0 0 24 24">
     	                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-camera-rear"></use>                            </svg>
+                            <svg id="icon-camera-front" viewBox="0 0 24 24">
+    	                    	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-camera-front"></use>                      		</svg>    
                         </button>
                             
                         <button class="dark" id="capture-flash-button" aria-label="Toggle flash" title="Toggle flash" tabindex="0">
@@ -318,19 +316,40 @@
                     
                     <div class="toolbar bott">
                		   <!-- espacio para más opcopnes de camara -->
+                       <div id="mi-slider" class="mi-slider fadeOut">
+                       		<ul id="listFilters">
+                                <li><img src="img/test-filter.jpg" class="none"></li>
+                                <li><img src="img/test-filter.jpg" class="brightness"></li>
+                                <li><img src="img/test-filter.jpg" class="saturate"></li>
+                                <li><img src="img/test-filter.jpg" class="contrast"></li>
+                                <li><img src="img/test-filter.jpg" class="blur"></li>
+                                <li><img src="img/test-filter.jpg" class="grayscale"></li>
+                                <li><img src="img/test-filter.jpg" class="invert"></li>
+                                <li><img src="img/test-filter.jpg" class="sepia"></li>
+                                <li><img src="img/test-filter.jpg" class="hue-rotate"></li>
+                            </ul>
+                        </div>
                     </div>
                         
                     <div class="toolbar center">
-             	       <div>
-                	       <button id="capture-button" aria-label="Take photo" title="Take photo" autofocus tabindex="0">
-     	                      <div id="capture-button-inner">
-        	                      <svg viewBox="0 0 24 24">
-            	                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-photo-camera">
-                                  </use></svg>
-                              </div>
-                           </button>
-                       </div>
+                    
+                    	<button class="dark hidden" id="camera-choose-button" aria-label="Choose camera" title="Choose camera" tabindex="0"> 	
+                        </button>
+                    
+                		<button id="capture-button" aria-label="Take photo" title="Take photo" autofocus tabindex="0">
+     	                	<div id="capture-button-inner">
+        	                	<svg viewBox="0 0 24 24">
+            	                	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-photo-camera">
+                                </use></svg>
+                            </div>
+                        </button>
+                           
+                        <button class="dark" id="photo-filter-button" aria-label="Photo Filter" title="Photo Filter" tabindex="0">
+                        	<svg viewBox="0 0 24 24">
+    	                    	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-photo-filter"></use>                      		</svg>
+                        </button>
                     </div>
+                    
                     <video id="localVideo" autoplay muted></video>
                     <!-- <canvas id="localCanvas"></canvas> -->
                 </div>
@@ -569,6 +588,7 @@
 					var localCanvas = document.getElementById("localCanvas");
 					var capturePhoto = document.getElementById("capture-button");
 					var flashButton = document.querySelector('#capture-flash-button');
+					var Slider = document.querySelector('#mi-slider');
 					var listDevices = [];
 					var currentDevice = 0;
 					var track;
@@ -576,6 +596,7 @@
 					var imageCapture;
 					var flashMode = ['flash', 'auto', 'off'];
 					var currentFlashMode = 1; // default auto
+					var cameraMode = ['icon-camera-rear', 'icon-camera-front'];
 					
 					function showIconFlash(fillLightMode){
 						
@@ -622,6 +643,7 @@
 						window.stream = stream; // make stream available to console
 					  	localVideo.srcObject = stream;
 					  
+					  	document.querySelector('#camera-choose-button>svg').style.display = 'none';
 					  	localVideo.style.display = 'block';
 					  
 					  	track = stream.getVideoTracks()[0];
@@ -634,9 +656,12 @@
 
 						if (currentDevice == 0){
 							flashButton.style.visibility = 'hidden';
+							document.getElementById(cameraMode[currentDevice]).style.display = 'block';
 						}else{
 							showIconFlash(flashMode[currentFlashMode]);
 							flashButton.style.visibility = 'visible';
+							
+							document.getElementById(cameraMode[currentDevice]).style.display = 'block';
 							
 							flashButton.addEventListener('click', function(){
 								if(currentFlashMode + 1 < 3){
@@ -696,6 +721,7 @@
 						if (window.stream) {
 							window.stream.getTracks().forEach(track => track.stop());
 							
+							notAnimating(document.querySelector('div#mi-slider>ul'), null);
 							//clearTimeout(timePoll);
 							//clearTimeout(callTimePoll);
 						}
@@ -733,6 +759,79 @@
 				//       FINAL Take Photo GetUserMedia Script      //
 				/***************************************************/
 				
+				/***************************************************/
+				//       Photo Filters Animations Script           //
+				/***************************************************/
+				
+				var button = document.querySelector('button#photo-filter-button');
+				var isAnimating = false;
+				
+				function animating(container, buttonAction){
+					Slider.className = Slider.className.replace('fadeOut', 'fadeIn');
+						
+					container.className += 'mi-moveFromRight';
+					container.addEventListener('animationend', function(){
+						isAnimating = true;	
+						buttonAction.disabled = false;
+					}, false);		
+				}
+				
+				function notAnimating(container, buttonAction = null){
+					Slider.className = Slider.className.replace('fadeIn', 'fadeOut');
+						
+					container.className = container.className.replace('mi-moveFromRight', 'mi-moveFromLeft');
+					container.addEventListener('animationend', function(){
+						container.className = container.className.replace('mi-moveFromLeft', '');
+						isAnimating = false;
+						if(buttonAction !== null)
+							buttonAction.disabled = false;	
+					}, false);	
+				}
+				
+				button.addEventListener('click', function(){
+					
+					var buttonAction = this;
+					var container = document.querySelector('div#mi-slider>ul');
+					
+					buttonAction.disabled = true;
+					
+					if (!isAnimating){	
+						animating(container, buttonAction);	
+					}else{
+						notAnimating(container, buttonAction);			
+					}
+					
+				});
+				
+				/***************************************************/
+				//       FIN Photo Filters Animations Script       //
+				/***************************************************/
+				
+				/***************************************************/
+				//       Filters Selection Script                  //
+				/***************************************************/
+				
+				var filters = document.querySelectorAll('ul#listFilters li img');
+				var filtersParent = document.querySelectorAll('ul#listFilters li');
+
+				for (filter of filters) {
+					filter.addEventListener("click", function(evt){
+						var filterClass = evt.target;
+						
+						for (filterParent of filtersParent) {
+							filterParent.className = '';
+						}
+						
+						console.log(filterClass.parentElement);
+						localVideo.className = filterClass.className;
+						filterClass.parentElement.className = 'current-filter';
+					});
+				}
+				
+				/***************************************************/
+				//      FIN Filters Selection Script               //
+				/***************************************************/
+					
 			})();
 			
 		</script>
