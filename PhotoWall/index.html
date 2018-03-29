@@ -592,6 +592,7 @@
 					var listDevices = [];
 					var currentDevice = 0;
 					var track;
+					var PCapabilities;
 					var imageCaptureConfig;
 					var imageCapture;
 					var flashMode = ['flash', 'auto', 'off'];
@@ -655,10 +656,10 @@
 						//const currentPhotoSettings = imageCapture.getPhotoSettings();
 						imageCapture.getPhotoCapabilities()
 							.then(function(PhotoCapabilities){
-								const PCapabilities = PhotoCapabilities.fillLightMode;
+								PCapabilities = PhotoCapabilities.fillLightMode;
 						});
 
-						if (PCapabilities.length == 0){
+						if (typeof PCapabilities === 'undefined'){
 							flashButton.style.visibility = 'hidden';
 							document.getElementById(cameraMode[currentDevice]).style.display = 'block';
 						}else{
