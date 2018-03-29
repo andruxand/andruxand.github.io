@@ -629,9 +629,9 @@
 					
 					function verifyBattery(){
 						if (navigator.battery) {
-							readBattery(navigator.battery);
+							return readBattery(navigator.battery);
 						}else if (navigator.getBattery) {
-							navigator.getBattery().then(readBattery);
+							return readBattery(navigator.getBattery);
 						}	
 					}
 					
@@ -642,14 +642,14 @@
 					
 						if (!bateria.charging) {
 							if ( (percentage <= 50) && ((currentFlashMode == 0) || (currentFlashMode == 1)) ) {
-								currentFlashMode = 2;
-								alert('nuevo modo: ' + currentFlashMode);
+								return true;
 								if(!batteryAlert){
 									batteryAlert = true;
 						  			alert('Nivel de bateria bajo (' + percentage + '%). No se activará el flash.');
 								}
 							}
 						}
+						return false;
 					}
 					
 					function gotDevices(deviceInfos) {
@@ -690,9 +690,11 @@
 							flashButton.style.visibility = 'hidden';
 							document.getElementById(cameraMode[currentDevice]).style.display = 'block';
 						}else{
-							showIconFlash(flashMode[currentFlashMode]);
-							
-							verifyBattery();
+							if(verifyBattery()){
+								showIconFlash(flashMode[2]);	
+							}else{
+								showIconFlash(flashMode[currentFlashMode]);	
+							}
 							
 							flashButton.style.visibility = 'visible';
 							
@@ -705,9 +707,11 @@
 									currentFlashMode = 0;
 								}
 								
-								showIconFlash(flashMode[currentFlashMode]);
-								
-								verifyBattery();
+								if(verifyBattery()){
+									showIconFlash(flashMode[2]);	
+								}else{
+									showIconFlash(flashMode[currentFlashMode]);	
+								}
 										
 								imageCaptureConfig = {
 									fillLightMode: flashMode[currentFlashMode], 
