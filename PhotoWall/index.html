@@ -598,7 +598,7 @@
 					var flashMode = ['flash', 'auto', 'off'];
 					var currentFlashMode = 1; // default auto
 					var cameraMode = ['icon-camera-rear', 'icon-camera-front'];
-					var bateria  = navigator.battery || navigator.mozBattery
+					var bateria;
 					
 					function showIconFlash(fillLightMode){
 						
@@ -624,6 +624,19 @@
 							
 						}
 								
+					}
+					
+					function readBattery(b) {
+						bateria = b || bateria;
+					
+						var percentage = parseFloat((battery.level * 100).toFixed(2));
+					
+						if (!bateria.charging) {
+							if ( (percentage <= 10) && (currentFlashMode == 1 || currentFlashMode == 2) ) {
+						  		alert('Nivel de bateria bajo. No se activará el flash.' +
+											+ '\n Nivel de bateria: ' + percentage * 100 + '%');
+							}
+						}
 					}
 					
 					function gotDevices(deviceInfos) {
@@ -676,13 +689,10 @@
 									currentFlashMode = 0;
 								}
 								
-								if( (bateria){
-									if(!bateria.charging){
-										if( (currentFlashMode == 2) && ((bateria.level * 100) <= 10) ){
-											alert('Nivel de bateria bajo. No se activará el flash.' +
-											+ '\n Nivel de bateria: ' + bateria.level * 100 + '%');	
-										}
-									}
+								if (navigator.battery) {
+									readBattery(navigator.battery);
+								}else if (navigator.getBattery) {
+									navigator.getBattery().then(readBattery);
 								}
 
 								showIconFlash(flashMode[currentFlashMode]);
