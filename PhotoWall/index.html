@@ -689,13 +689,13 @@
 							flashButton.style.visibility = 'hidden';
 							document.getElementById(cameraMode[currentDevice]).style.display = 'block';
 						}else{
+							verifyBattery();
+							
 							showIconFlash(flashMode[currentFlashMode]);
 							flashButton.style.visibility = 'visible';
 							
 							document.getElementById(cameraMode[currentDevice]).style.display = 'block';
-							
-							verifyBattery();
-							
+
 							flashButton.addEventListener('click', function(){
 								if(currentFlashMode + 1 < 3){
 									currentFlashMode = currentFlashMode + 1;	
