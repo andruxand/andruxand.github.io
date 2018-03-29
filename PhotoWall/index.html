@@ -642,6 +642,7 @@
 					
 						var percentage = parseFloat((bateria.level * 100).toFixed(2));
 					
+					alert('modmo: ' + currentFlashMode);
 						if (!bateria.charging) {
 							if ( (percentage <= 50) && ((currentFlashMode == 0) || (currentFlashMode == 1)) ) {
 								result =  true;
