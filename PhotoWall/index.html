@@ -642,7 +642,7 @@
 					
 						//alert('modmo: ' + percentage);
 						if (!bateria.charging) {
-							if ( (percentage <= 50) && ((currentFlashMode == 0) || (currentFlashMode == 1)) ) {
+							if ( (percentage <= 100) && ((currentFlashMode == 0) || (currentFlashMode == 1)) ) {
 								//alert('cumple return true');
 								currentFlashMode = 2;
 								if(!batteryAlert){
