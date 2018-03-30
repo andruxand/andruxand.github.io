@@ -628,31 +628,29 @@
 					}
 					
 					function verifyBattery(){
-						if (navigator.battery) {
-							return readBattery(navigator.battery);
-						}else if (navigator.getBattery) {
-							return readBattery(navigator.getBattery);
+						if (navigator.getBattery) {
+							alert('promesa');
+							navigator.getBattery()
+								.then(readBattery);
 						}	
 					}
 					
-					function readBattery(b) {
-						var result = false;
-						
+					function readBattery(b) {	
 						bateria = b || bateria;
 					
 						var percentage = parseFloat((bateria.level * 100).toFixed(2));
 					
-					alert('modmo: ' + currentFlashMode);
+						//alert('modmo: ' + percentage);
 						if (!bateria.charging) {
 							if ( (percentage <= 50) && ((currentFlashMode == 0) || (currentFlashMode == 1)) ) {
-								result =  true;
+								//alert('cumple return true');
+								currentFlashMode = 2;
 								if(!batteryAlert){
 									batteryAlert = true;
 						  			alert('Nivel de bateria bajo (' + percentage + '%). No se activará el flash.');
 								}
 							}
 						}
-						return result;
 					}
 					
 					function gotDevices(deviceInfos) {
@@ -693,34 +691,38 @@
 							flashButton.style.visibility = 'hidden';
 							document.getElementById(cameraMode[currentDevice]).style.display = 'block';
 						}else{
-							if(verifyBattery()){
-								showIconFlash(flashMode[2]);	
-							}else{
-								showIconFlash(flashMode[currentFlashMode]);	
-							}
-							alert(verifyBattery());
-							
-							flashButton.style.visibility = 'visible';
-							
+							//alert('entro');
 							document.getElementById(cameraMode[currentDevice]).style.display = 'block';
-
-							flashButton.addEventListener('click', function(){
-								if(currentFlashMode + 1 < 3){
-									currentFlashMode = currentFlashMode + 1;	
-								}else{
-									currentFlashMode = 0;
-								}
+							
+							verifyBattery();	
+							
+							setTimeout( function() {
 								
-								if(verifyBattery()){
-									showIconFlash(flashMode[2]);	
-								}else{
-									showIconFlash(flashMode[currentFlashMode]);	
-								}
+								//alert('segundo');
+								showIconFlash(flashMode[currentFlashMode]);	
+								
+								flashButton.style.visibility = 'visible';
+	
+								flashButton.addEventListener('click', function(){
+									if(currentFlashMode + 1 < 3){
+										currentFlashMode = currentFlashMode + 1;	
+									}else{
+										currentFlashMode = 0;
+									}
+									
+									verifyBattery();
+									
+									setTimeout( function() {
+										showIconFlash(flashMode[currentFlashMode]);	
+												
+										imageCaptureConfig = {
+											fillLightMode: flashMode[currentFlashMode], 
+										};
 										
-								imageCaptureConfig = {
-									fillLightMode: flashMode[currentFlashMode], 
-								};					
-							});	
+									}, 500 );					
+								});	
+								
+							}, 500 );
 						}					
 					
 						track.applyConstraints({
