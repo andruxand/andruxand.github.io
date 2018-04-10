@@ -127,6 +127,7 @@
 			
 			.content {
 				height: 80%;
+				max-height: 80%;
 			}
 			
 			.toolbar {
@@ -140,6 +141,23 @@
 			
 			.toolbar.right {
 				justify-content: flex-end;
+			}
+			
+			.toolbar-photoedit {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-around;
+				width: 100%;
+				flex-shrink: 0;
+				align-items: center;
+			}
+			
+			.toolbar-top {
+				height: 10%;	
+			}
+			
+			.toolbar-bottom {
+				height: 10%;	
 			}
 			
 			button svg {
@@ -374,7 +392,7 @@
             
            	<div id="right-screen" class="ms-container"> 
                 <div class="view-element" id="capture-view" style="">
-                	<div class="toolbar">
+                	<div class="toolbar toolbar-top">
                     	<button class="dark" id="return-screen">
                         	<svg viewBox="0 0 24 24">
                             	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-back"></use>
@@ -390,7 +408,7 @@
                         </button>
                     </div>
                         
-                    <div class="toolbar content">
+                    <div class="toolbar-photoedit content">
                     <!-- espacio para más opcopnes de camara -->
                     	<img id="capturedPhoto" width="100%" />  
                     	<div id="mi-slider" class="mi-slider fadeOut">
@@ -408,7 +426,7 @@
                         </div>
                     </div>
                             
-                    <div class="toolbar center">    
+                    <div class="toolbar toolbar-bottom center">    
                     	<button class="dark hidden"></button>
                         
                         <button class="dark hidden"></button>
