@@ -418,11 +418,11 @@ section p {
 /* fade IN/OUT */
 
 .mi-slider.fadeIn {
-	opacity: 1;    
+	opacity: 1;   
 }
 
 .mi-slider.fadeOut {
-	opacity: 0;    
+	opacity: 0; 
 }
 
 /* moveFromRight */
@@ -507,6 +507,10 @@ div#mi-slider ul li:hover, div#mi-slider ul li:focus {
 }
 div#mi-slider ul li.current-filter {
 	border-color: #10BFC9;	
+}
+
+.no-display {
+	display: none;	
 }
 
 @keyframes moveFromRight {

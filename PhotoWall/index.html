@@ -149,7 +149,7 @@
 				justify-content: space-around;
 				width: 100%;
 				flex-shrink: 0;
-				align-items: center;
+				all: inherit;
 			}
 			
 			.toolbar-top {
@@ -273,7 +273,8 @@
 			}
 			
 			#capturedPhoto {
-				/*margin: 50%;	*/
+				width: 100%;
+   				margin: auto;
 			}
 		
 		 </style>
@@ -410,20 +411,7 @@
                         
                     <div class="toolbar-photoedit content">
                     <!-- espacio para más opcopnes de camara -->
-                    	<img id="capturedPhoto" width="100%" />  
-                    	<div id="mi-slider" class="mi-slider fadeOut">
-                        	<ul id="listFilters">
-                            	<li><img src="img/test-filter.jpg" class="none"></li>
-                                <li><img src="img/test-filter.jpg" class="brightness"></li>
-                                <li><img src="img/test-filter.jpg" class="saturate"></li>
-                                <li><img src="img/test-filter.jpg" class="contrast"></li>
-                                <li><img src="img/test-filter.jpg" class="blur"></li>
-                                <li><img src="img/test-filter.jpg" class="grayscale"></li>
-                                <li><img src="img/test-filter.jpg" class="invert"></li>
-                                <li><img src="img/test-filter.jpg" class="sepia"></li>
-                                <li><img src="img/test-filter.jpg" class="hue-rotate"></li>
-                            </ul>
-                        </div>
+                    	<img id="capturedPhoto" />  	
                     </div>
                             
                     <div class="toolbar toolbar-bottom center">    
@@ -436,6 +424,20 @@
                             	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-photo-filter"></use>                      		
                             </svg>
                         </button>
+                        <!-- espacio para filtros -->
+                        <div id="mi-slider" class="mi-slider fadeOut no-display">
+                        	<ul id="listFilters">
+                            	<li><img src="img/test-filter.jpg" class="none"></li>
+                                <li><img src="img/test-filter.jpg" class="brightness"></li>
+                                <li><img src="img/test-filter.jpg" class="saturate"></li>
+                                <li><img src="img/test-filter.jpg" class="contrast"></li>
+                                <li><img src="img/test-filter.jpg" class="blur"></li>
+                                <li><img src="img/test-filter.jpg" class="grayscale"></li>
+                                <li><img src="img/test-filter.jpg" class="invert"></li>
+                                <li><img src="img/test-filter.jpg" class="sepia"></li>
+                                <li><img src="img/test-filter.jpg" class="hue-rotate"></li>
+                            </ul>
+                        </div>
                     </div>  
                 </div><!-- /container -->  
         	</div><!-- /right-screen --> 
