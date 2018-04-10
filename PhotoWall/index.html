@@ -30,6 +30,8 @@
         <link rel="stylesheet" type="text/css" href="css/component_morph_button.css" />
         <!-- Camera Animate css -->
         <link rel="stylesheet" type="text/css" href="css/camera-animate.css" />
+        <!-- Multi Screen css -->
+        <link rel="stylesheet" type="text/css" href="css/multi-screen-css.css" />
         <script>document.documentElement.className="js";var supportsCssVars=function(){var e,t=document.createElement("style");return t.innerHTML="root: { --tmp-var: bold; }",document.head.appendChild(t),e=!!(window.CSS&&window.CSS.supports&&window.CSS.supports("font-weight","var(--tmp-var)")),t.parentNode.removeChild(t),e};supportsCssVars()||alert("Please view this demo in a modern browser that supports CSS Variables.");</script>
 		<script src="js/snap.svg-min.js"></script>
         <!-- Morph Button scripts -->
@@ -123,6 +125,10 @@
 				margin-top: auto;
 			}
 			
+			.content {
+				height: 80%;
+			}
+			
 			.toolbar {
 				display: flex;
 				flex-direction: row;
@@ -151,6 +157,11 @@
 			}
 			
 			#page-2 svg {
+				fill: currentColor;
+				width: 26px;
+			}
+			
+			#right-screen svg {
 				fill: currentColor;
 				width: 26px;
 			}
@@ -242,83 +253,149 @@
 			  margin: 0 10px 25px 0;
 			  width: 110px;
 			}
+			
+			#capturedPhoto {
+				margin: 50%;	
+			}
 		
 		 </style>
 	</head>
 	<body>
-		<div id="pagewrap" class="pagewrap">
-			<div class="container show" id="page-1">
-				<div class="header">
+    	<div id="pagewrap" class="pagewrap">
+        	<div class="container show" id="page-1">
+            	<div class="header">
                 	<div class="slide__bg slide__bg--3"></div>
                     <div class="word">
                         <h2 class="word-animate word--3">Photo Wall</h2>
-                        
+                                
                         <!-- camera animate -->
                         <div class="flat-anim animation">
                             <div class="eye"></div>
                             <div class="bottom"></div>
                         </div>
                         <!-- camera animate -->
-                       
-                        <!-- morph-button -->
-                        <div class="morph-button morph-button-modal morph-button-modal-1 morph-button-fixed">
-                            <button type="button">Términos &amp; Condiciones</button>
-                            <div class="morph-content">
-                                <div>
-                                    <div class="content-style-text">
-                                        <span class="icon" id="icon-close">Close the dialog</span>
-                                        <h2>Terms &amp; Conditions</h2>
-                                        <p>Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut juccama green bean celtuce collard greens avocado quandong <strong>fennel gumbo</strong> black-eyed pea. Grape silver beet watercress potato tigernut corn groundnut. Chickweed okra pea winter purslane coriander yarrow sweet pepper radish garlic brussels sprout groundnut summer purslane earthnut pea <strong>tomato spring onion</strong> azuki bean gourd.</p>
-                                        <p><input id="terms" type="checkbox" /><label for="terms">I accept the terms &amp; conditions.</label></p>
-                                    </div>
-                                </div>
+                           
+                   		<!-- morph-button -->
+                    	<div class="morph-button morph-button-modal morph-button-modal-1 morph-button-fixed">
+                    		<button type="button">Términos &amp; Condiciones</button>
+                        	<div class="morph-content">
+                        		<div>
+                            		<div class="content-style-text">
+                                		<span class="icon" id="icon-close">Close the dialog</span>
+                                    	<h2>Terms &amp; Conditions</h2>
+                                    	<p>Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut juccama green bean celtuce collard greens avocado quandong <strong>fennel gumbo</strong> black-eyed pea. Grape silver beet watercress potato tigernut corn groundnut. Chickweed okra pea winter purslane coriander yarrow sweet pepper radish garlic brussels sprout groundnut summer purslane earthnut pea <strong>tomato spring onion</strong> azuki bean gourd.</p>
+                                    	<p><input id="terms" type="checkbox" /><label for="terms">I accept the terms &amp; conditions.</label></p>
+                                	</div>
+                            	</div>
+                        	</div>
+                    	</div>
+                    	<!-- morph-button -->
+                            
+                    	<div class="column center">
+                    		<p>To start the page loading animation, click the following link:</p>
+                        	<p><a class="pageload-link pageload" href="#page-2">Show Page Loader</a></p>
+                    	</div>
+                	</div>
+            	</div>
+       		</div><!-- /container -->
+    
+            <!-- The new page dummy; this would be dynamically loaded content -->
+            <div id="center-screen" class="ms-container ms-default">
+                <div class="container" id="page-2">
+                    <div class="view-element" id="capture-view" style="">
+                        <div class="toolbar">
+                        	<a class="dark pageload" href="#page-1" id="capture-view-close" aria-label="Close" title="Close" tabindex="0">
+                                <svg viewBox="0 0 24 24">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-close"></use>
+                                </svg>
+                            </a>
+                                
+                            <button class="dark" id="camera-choose-button" aria-label="Choose camera" title="Choose camera" tabindex="0">
+                                <svg id="icon-camera-rear" viewBox="0 0 24 24">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-camera-rear"></use>                            </svg>
+                                <svg id="icon-camera-front" viewBox="0 0 24 24">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-camera-front"></use>                      		</svg>    
+                            </button>
+                                
+                            <button class="dark" id="capture-flash-button" aria-label="Toggle flash" title="Toggle flash" tabindex="0">
+                                <svg id="icon-flash-on" viewBox="0 0 24 24">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-flash-on"></use>
+                                </svg>
+                                <svg id="icon-flash-off" viewBox="0 0 24 24">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-flash-off"></use>
+                                </svg>
+                                <svg id="icon-flash-auto" viewBox="0 0 24 24">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-flash-auto"></use>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div class="toolbar bott">
+                           <!-- espacio para más opcopnes de camara -->
+                           <div id="mi-slider" class="mi-slider fadeOut">
+                                <ul id="listFilters">
+                                    <li><img src="img/test-filter.jpg" class="none"></li>
+                                    <li><img src="img/test-filter.jpg" class="brightness"></li>
+                                    <li><img src="img/test-filter.jpg" class="saturate"></li>
+                                    <li><img src="img/test-filter.jpg" class="contrast"></li>
+                                    <li><img src="img/test-filter.jpg" class="blur"></li>
+                                    <li><img src="img/test-filter.jpg" class="grayscale"></li>
+                                    <li><img src="img/test-filter.jpg" class="invert"></li>
+                                    <li><img src="img/test-filter.jpg" class="sepia"></li>
+                                    <li><img src="img/test-filter.jpg" class="hue-rotate"></li>
+                                </ul>
                             </div>
                         </div>
-                   		<!-- morph-button -->
+                            
+                        <div class="toolbar center">
                         
-                        <div class="column center">
-                            <p>To start the page loading animation, click the following link:</p>
-                            <p><a class="pageload-link pageload" href="#page-2">Show Page Loader</a></p>
+                            <button class="dark hidden" id="camera-choose-button" aria-label="Choose camera" title="Choose camera" tabindex="0"> 	
+                            </button>
+                        
+                            <button id="capture-button" aria-label="Take photo" title="Take photo" autofocus tabindex="0">
+                                <div id="capture-button-inner">
+                                    <svg viewBox="0 0 24 24">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-photo-camera">
+                                    </use></svg>
+                                </div>
+                            </button>
+                               
+                            <button class="dark" id="photo-filter-button" aria-label="Photo Filter" title="Photo Filter" tabindex="0">
+                                <svg viewBox="0 0 24 24">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-photo-filter"></use>                      		</svg>
+                            </button>
                         </div>
+                        
+                        <video id="localVideo" autoplay muted></video>
+                        <!-- <canvas id="localCanvas"></canvas> -->
                     </div>
-				</div>
-			</div><!-- /container -->
-
-			<!-- The new page dummy; this would be dynamically loaded content -->
-			<div class="container" id="page-2">
-				<div class="view-element" id="capture-view" style="">
+                </div><!-- /container -->
+        	</div><!-- /center-screen -->
+            
+           	<div id="right-screen" class="ms-container"> 
+                <div class="view-element" id="capture-view" style="">
                 	<div class="toolbar">
-                    	<a class="dark pageload" href="#page-1" id="capture-view-close" aria-label="Close" title="Close" tabindex="0">
+                    	<button class="dark" id="return-screen">
                         	<svg viewBox="0 0 24 24">
-                            	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-close"></use>
+                            	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-arrow-back"></use>
                             </svg>
-                        </a>
-                            
-                        <button class="dark" id="camera-choose-button" aria-label="Choose camera" title="Choose camera" tabindex="0">
-                        	<svg id="icon-camera-rear" viewBox="0 0 24 24">
-    	                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-camera-rear"></use>                            </svg>
-                            <svg id="icon-camera-front" viewBox="0 0 24 24">
-    	                    	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-camera-front"></use>                      		</svg>    
                         </button>
-                            
-                        <button class="dark" id="capture-flash-button" aria-label="Toggle flash" title="Toggle flash" tabindex="0">
+                                
+                        <button class="dark hidden"></button>
+                                
+                        <button class="dark" id="confirm-image">
                         	<svg id="icon-flash-on" viewBox="0 0 24 24">
                             	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-flash-on"></use>
                             </svg>
-                            <svg id="icon-flash-off" viewBox="0 0 24 24">
-                            	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-flash-off"></use>
-                            </svg>
-                            <svg id="icon-flash-auto" viewBox="0 0 24 24">
-                            	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-flash-auto"></use>
-                            </svg>
                         </button>
                     </div>
-                    
-                    <div class="toolbar bott">
-               		   <!-- espacio para más opcopnes de camara -->
-                       <div id="mi-slider" class="mi-slider fadeOut">
-                       		<ul id="listFilters">
-                                <li><img src="img/test-filter.jpg" class="none"></li>
+                        
+                    <div class="toolbar content">
+                    <!-- espacio para más opcopnes de camara -->
+                    	<img id="capturedPhoto" width="100%" />  
+                    	<div id="mi-slider" class="mi-slider fadeOut">
+                        	<ul id="listFilters">
+                            	<li><img src="img/test-filter.jpg" class="none"></li>
                                 <li><img src="img/test-filter.jpg" class="brightness"></li>
                                 <li><img src="img/test-filter.jpg" class="saturate"></li>
                                 <li><img src="img/test-filter.jpg" class="contrast"></li>
@@ -330,31 +407,22 @@
                             </ul>
                         </div>
                     </div>
+                            
+                    <div class="toolbar center">    
+                    	<button class="dark hidden"></button>
                         
-                    <div class="toolbar center">
-                    
-                    	<button class="dark hidden" id="camera-choose-button" aria-label="Choose camera" title="Choose camera" tabindex="0"> 	
-                        </button>
-                    
-                		<button id="capture-button" aria-label="Take photo" title="Take photo" autofocus tabindex="0">
-     	                	<div id="capture-button-inner">
-        	                	<svg viewBox="0 0 24 24">
-            	                	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-photo-camera">
-                                </use></svg>
-                            </div>
-                        </button>
-                           
-                        <button class="dark" id="photo-filter-button" aria-label="Photo Filter" title="Photo Filter" tabindex="0">
+                        <button class="dark hidden"></button>
+                               
+                        <button class="dark" id="photo-filter-edit">
                         	<svg viewBox="0 0 24 24">
-    	                    	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-photo-filter"></use>                      		</svg>
+                            	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-photo-filter"></use>                      		
+                            </svg>
                         </button>
-                    </div>
-                    
-                    <video id="localVideo" autoplay muted></video>
-                    <!-- <canvas id="localCanvas"></canvas> -->
-                </div>
-			</div><!-- /container -->		
-		</div><!-- /pagewrap -->
+                    </div>  
+                </div><!-- /container -->  
+        	</div><!-- /right-screen --> 
+            
+        </div><!-- /pagewrap -->             		
         
         <div id="loader" class="pageload-overlay" data-opening="m -5,-5 0,70 90,0 0,-70 z m 5,35 c 0,0 15,20 40,0 25,-20 40,0 40,0 l 0,0 C 80,30 65,10 40,30 15,50 0,30 0,30 z">
 			<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 80 60" preserveAspectRatio="none" >
@@ -372,6 +440,9 @@
         <!-- Morph Button scripts -->
         <script src="js/classie.js"></script>
 		<script src="js/uiMorphingButton_fixed.js"></script>
+        <!-- multi-screen scripts -->
+        <script src="http://code.jquery.com/jquery-latest.pack.js"></script>
+		<script src="js/multi-screen.js"></script>
 		<script>
 			(function() {
 				
@@ -589,6 +660,7 @@
 					var capturePhoto = document.getElementById("capture-button");
 					var flashButton = document.querySelector('#capture-flash-button');
 					var Slider = document.querySelector('#mi-slider');
+					var capturedPhoto = document.getElementById("capturedPhoto");
 					var listDevices = [];
 					var currentDevice = 0;
 					var track;
@@ -641,7 +713,7 @@
 					
 						//alert('modmo: ' + percentage);
 						if (!bateria.charging) {
-							if ( (percentage <= 100) && ((currentFlashMode == 0) || (currentFlashMode == 1)) ) {
+							if ( (percentage <= 10) && ((currentFlashMode == 0) || (currentFlashMode == 1)) ) {
 								//alert('cumple return true');
 								currentFlashMode = 2;
 								if(!batteryAlert){
@@ -788,8 +860,10 @@
 									console.log('Photo taken: ' + blob.type + ', ' + blob.size + 'B');
 						
 									//const image = document.querySelector('img');
-									//image.src = URL.createObjectURL(blob);
-									alert(URL.createObjectURL(blob));
+									capturedPhoto.className = localVideo.className;
+									capturedPhoto.src = URL.createObjectURL(blob);
+									//alert(URL.createObjectURL(blob));
+									goToRight();
 								})
 								.catch(err => alert('takePhoto() failed: ', err));
 						}
@@ -835,7 +909,6 @@
 				}
 				
 				button.addEventListener('click', function(){
-					
 					var buttonAction = this;
 					var container = document.querySelector('div#mi-slider>ul');
 					
@@ -876,6 +949,43 @@
 				
 				/***************************************************/
 				//      FIN Filters Selection Script               //
+				/***************************************************/
+				
+				/***************************************************/
+				//             Multi-Screen Script                 //
+				/***************************************************/
+				
+				var btnReturn = document.getElementById('return-screen');
+				
+				var options = {
+					default_time : 500,                 
+					default_distance: 0             
+				}
+
+				MultiScreen.init(options);
+				
+				btnReturn.addEventListener('click', function(){
+					goToLeft();
+				});
+				
+				function goToRight(){
+					localVideo.style.display = 'none';
+					stopCamera();
+					MultiScreen.switch_screens(
+						{target_id: 'right-screen', enter_animation_command: 'right', exit_animation_command: 'left'
+					});
+				}
+				
+				function goToLeft(){
+					alert('ESO');
+					MultiScreen.switch_screens(
+						{target_id: 'center-screen', enter_animation_command: 'left', exit_animation_command: 'right'
+					});
+					start();
+				}
+				
+				/***************************************************/
+				//            FIN Multi-Screen Script              //
 				/***************************************************/
 					
 			})();
