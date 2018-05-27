@@ -1,6 +1,6 @@
 {
   "name": "Photo Wall",
-  "short_name": "PhotoWall",
+  "short_name": "Photo Wall",
   "description": "Captura y comparte tus momento en un instante",
   "dir": "ltr",
   "lang": "es",
@@ -21,10 +21,10 @@
       "sizes": "512x512",
       "type": "image/png"
     }],
-  "start_url": "/?utm_source=homescreen",
+  "start_url": "index.html",
   "scope": "/",
   "background_color": "#000",
   "theme_color": "#000",
   "display": "standalone",
-  ​​"orientation": "portrait"
+  "orientation": "potrait",
 }

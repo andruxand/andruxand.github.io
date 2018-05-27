@@ -33,16 +33,9 @@
         <!-- Multi Screen css -->
         <link rel="stylesheet" type="text/css" href="css/multi-screen-css.css" />
         <script>document.documentElement.className="js";var supportsCssVars=function(){var e,t=document.createElement("style");return t.innerHTML="root: { --tmp-var: bold; }",document.head.appendChild(t),e=!!(window.CSS&&window.CSS.supports&&window.CSS.supports("font-weight","var(--tmp-var)")),t.parentNode.removeChild(t),e};supportsCssVars()||alert("Please view this demo in a modern browser that supports CSS Variables.");</script>
-		<script src="js/snap.svg-min.js"></script>
-        <!-- Morph Button scripts -->
-        <script src="js/modernizr.custom.js"></script>
 		<!--[if IE]>
   		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-        <!-- Take Photo GetUserMedia scripts -->
-        <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-        <script src="js/face.js"></script>
-        <script src="js/ccv.js"></script>
         <style type="text/css">
 			display: block;display: block;* { margin:0; padding:0; } /* to remove the top and left whitespace */
 			html, body { width:100%; height:100%;margin:0; } /* just to be sure these are full screen*/
@@ -451,19 +444,25 @@
 			</svg>
 		</div><!-- /pageload-overlay -->
         
+        <script src="js/snap.svg-min.js"></script>
+        <!-- Take Photo GetUserMedia scripts -->
+        <script src="https://webrtc.github.io/adapter/adapter-latest.js" async></script>
+        <script src="js/face.js" async></script>
+        <script src="js/ccv.js" async></script>
         <!-- loader page scripts -->
-		<script src="js/classie.js"></script>
-		<script src="js/svgLoader.js"></script>
+		<script src="js/classie.js" async></script>
+		<script src="js/svgLoader.js" async></script>
         <!-- animate words scripts -->
         <script src="js/charming.min.js"></script>
 		<script src="js/anime.min.js"></script>
 		<script src="js/wordFx.js"></script>
         <!-- Morph Button scripts -->
-        <script src="js/classie.js"></script>
-		<script src="js/uiMorphingButton_fixed.js"></script>
+        <script src="js/classie.js" async></script>
+		<script src="js/uiMorphingButton_fixed.js" async></script>
+		<script src="js/modernizr.custom.js" async></script>
         <!-- multi-screen scripts -->
         <script src="https://code.jquery.com/jquery-latest.pack.js"></script>
-		<script src="js/multi-screen.js"></script>
+		<script src="js/multi-screen.js" async></script>
 		<script>
 			(function() {
 				
