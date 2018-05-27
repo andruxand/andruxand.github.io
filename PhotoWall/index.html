@@ -11,6 +11,7 @@
         <link rel='canonical' href='https://andruxand.github.io/PhotoWall/index.html'>
         <meta name='mobile-web-app-capable' content='yes'>
    		<meta name='apple-mobile-web-app-capable' content='yes'>
+		<meta name="msapplication-starturl" content="/">
 		<meta name="description" content="Moderno Photo Wall para capturar y compatir lo mejores momentos con todos" />
 		<meta name="author" content="Unicode. Creating Innovation, Creation Experience." />
         <meta name='application-name' content='Photo Wall'>
@@ -362,7 +363,7 @@
                             
                         <div class="toolbar center">
                         
-                            <button class="dark hidden" id="camera-choose-button" aria-label="Choose camera" title="Choose camera" tabindex="0"> 	
+                            <button class="dark hidden" id="button-hidden-right" aria-label="Button Hidden" title="Button Hidden" tabindex="0"> 	
                             </button>
                         
                             <button id="capture-button" aria-label="Take photo" title="Take photo" autofocus tabindex="0">
@@ -386,7 +387,7 @@
         	</div><!-- /center-screen -->
             
            	<div id="right-screen" class="ms-container"> 
-                <div class="view-element" id="capture-view" style="">
+                <div class="view-element" id="captured-photo" style="">
                 	<div class="toolbar toolbar-top">
                     	<button class="dark" id="return-screen">
                         	<svg viewBox="0 0 24 24">
@@ -397,8 +398,8 @@
                         <button class="dark hidden"></button>
                                 
                         <button class="dark" id="confirm-image">
-                        	<svg id="icon-flash-on" viewBox="0 0 24 24">
-                            	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-flash-on"></use>
+                        	<svg id="add-photo" viewBox="0 0 24 24">
+                            	<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-check"></use>
                             </svg>
                         </button>
                     </div>
@@ -419,8 +420,8 @@
                             </svg>
                         </button>
                         <!-- espacio para filtros -->
-                        <div id="mi-slider" class="mi-slider fadeOut no-display">
-                        	<ul id="listFilters">
+                        <div id="mi-slider-photo" class="mi-slider fadeOut no-display">
+                        	<ul id="listFilters-photo">
                             	<li><img src="img/test-filter.jpg" class="none"></li>
                                 <li><img src="img/test-filter.jpg" class="brightness"></li>
                                 <li><img src="img/test-filter.jpg" class="saturate"></li>
