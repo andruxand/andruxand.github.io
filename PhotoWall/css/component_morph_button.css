@@ -450,7 +450,7 @@
 @media screen and (max-width: 400px) {
 	.morph-button-fixed,
 	.morph-button-fixed .morph-content {
-		width: 300px;
+		width: 100%;
 		height: 80px;
 	}
 

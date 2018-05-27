@@ -7,7 +7,6 @@
         <meta name="HandheldFriendly" content="true" />
         <meta property="og:type" content="website">
 		<meta property="og:UNICODE" content="Photo Wall">
-		<meta name="theme-color" content="#000"> 
 		<title>Photo Wall</title>
         <link rel='canonical' href='https://andruxand.github.io/PhotoWall/index.html'>
         <meta name='mobile-web-app-capable' content='yes'>
@@ -23,6 +22,7 @@
         <meta name='msapplication-TileColor' content='#000'>
     	<meta name='theme-color' content='#000'>
         
+        <link rel="manifest" href="manifest.json">
 		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
         <link rel="stylesheet" type="text/css" href="css/demo.css" />
 		<link rel="stylesheet" type="text/css" href="css/component.css" />
@@ -115,10 +115,6 @@
 			
 			.toolbar.left {
 				justify-content: flex-start;
-			}
-			
-			.center {
-				justify-content: center;
 			}
 			
 			.bott {
@@ -283,17 +279,22 @@
     	<div id="pagewrap" class="pagewrap">
         	<div class="container show" id="page-1">
             	<div class="header">
-                	<div class="slide__bg slide__bg--3"></div>
-                    <div class="word">
-                        <h2 class="word-animate word--3">Photo Wall</h2>
-                                
-                        <!-- camera animate -->
-                        <div class="flat-anim animation">
-                            <div class="eye"></div>
-                            <div class="bottom"></div>
-                        </div>
-                        <!-- camera animate -->
-                           
+
+            		<div class="b-purpple">
+	                	<div class="slide__bg slide__bg--3"></div>
+	                    <div class="word">
+	                        <h2 class="word-animate word--3">Photo Wall</h2>
+	                    </div>
+
+	                    <!-- camera animate -->
+		                <div class="flat-anim animation">
+		                    <div class="eye"></div>
+		                    <div class="bottom"></div>
+		                </div>
+	                    <!-- camera animate -->
+                    </div>
+                         
+                    <div class="b-white">   
                    		<!-- morph-button -->
                     	<div class="morph-button morph-button-modal morph-button-modal-1 morph-button-fixed">
                     		<button type="button">Términos &amp; Condiciones</button>
@@ -311,9 +312,9 @@
                     	<!-- morph-button -->
                             
                     	<div class="column center">
-                    		<p>To start the page loading animation, click the following link:</p>
-                        	<p><a class="pageload-link pageload" href="#page-2">Show Page Loader</a></p>
+                        	<p><a class="pageload-link pageload" href="#page-2">Tomarme Una Foto >></a></p>
                     	</div>
+
                 	</div>
             	</div>
        		</div><!-- /container -->
@@ -885,7 +886,7 @@
 									//alert(URL.createObjectURL(blob));
 									goToRight();
 								})
-								.catch(err => alert('takePhoto() failed: ', err));
+								.catch(err => alert('Sin permisos para acceder a la cámara.'));
 						}
 					}
 					
@@ -997,7 +998,6 @@
 				}
 				
 				function goToLeft(){
-					alert('ESO');
 					MultiScreen.switch_screens(
 						{target_id: 'center-screen', enter_animation_command: 'left', exit_animation_command: 'right'
 					});
