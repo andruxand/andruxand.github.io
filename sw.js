@@ -15,6 +15,11 @@
 var CACHE_NAME = 'mision-apostolica-v1';
 var urlsToCache = [
   '/',
+  'images/shop-icon-32.png',
+  'images/shop-icon-128.png',
+  'images/shop-icon-192.png',
+  'images/shop-icon-384.png',
+  'images/shop-icon-512.png',
 ];
 
 self.addEventListener('install', function(event) {
